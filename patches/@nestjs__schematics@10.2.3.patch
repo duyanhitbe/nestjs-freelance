@@ -243,7 +243,7 @@ index 0000000000000000000000000000000000000000..cd0359ae1c906dc77f7a140737179afc
 +export class <%= classify(name) %>Module {}
 diff --git a/dist/lib/resource/files/ts/transport/usecases/create-__name__.usecase.ts b/dist/lib/resource/files/ts/transport/usecases/create-__name__.usecase.ts
 new file mode 100644
-index 0000000000000000000000000000000000000000..7ec8be161f56c3f1371895b0439cbd7a0efc802f
+index 0000000000000000000000000000000000000000..a6b38880bc771e1be980741628cafd26da5c4fd3
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/transport/usecases/create-__name__.usecase.ts
 @@ -0,0 +1,14 @@
@@ -253,17 +253,17 @@ index 0000000000000000000000000000000000000000..7ec8be161f56c3f1371895b0439cbd7a
 +
 +@Injectable()
 +export class Create<%= classify(name) %>UseCase extends ExecuteHandler<<%= classify(name) %>Entity> {
-+	constructor(private readonly <%= name %>Repository: <%= classify(name) %>Repository) {
++	constructor(private readonly <%= lowercased(name) %>Repository: <%= classify(name) %>Repository) {
 +		super();
 +	}
 +
 +	async execute(data: Create<%= classify(name) %>Dto): Promise<<%= classify(name) %>Entity> {
-+		return this.<%= name %>Repository.create({ data });
++		return this.<%= lowercased(name) %>Repository.create({ data });
 +	}
 +}
 diff --git a/dist/lib/resource/files/ts/transport/usecases/delete-__name__.usecase.ts b/dist/lib/resource/files/ts/transport/usecases/delete-__name__.usecase.ts
 new file mode 100644
-index 0000000000000000000000000000000000000000..92e832de803e4f2623e0a41c46bee9cc1f236c56
+index 0000000000000000000000000000000000000000..189c030506ee45d16284d65154c27ec7834977e3
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/transport/usecases/delete-__name__.usecase.ts
 @@ -0,0 +1,14 @@
@@ -273,17 +273,17 @@ index 0000000000000000000000000000000000000000..92e832de803e4f2623e0a41c46bee9cc
 +
 +@Injectable()
 +export class Delete<%= classify(name) %>UseCase extends ExecuteHandler<<%= classify(name) %>Entity> {
-+	constructor(private readonly <%= name %>Repository: <%= classify(name) %>Repository) {
++	constructor(private readonly <%= lowercased(name) %>Repository: <%= classify(name) %>Repository) {
 +		super();
 +	}
 +
 +	async execute(id: string): Promise<<%= classify(name) %>Entity> {
-+		return this.<%= name %>Repository.softDeleteById({ id });
++		return this.<%= lowercased(name) %>Repository.softDeleteById({ id });
 +	}
 +}
 diff --git a/dist/lib/resource/files/ts/transport/usecases/detail-__name__.usecase.ts b/dist/lib/resource/files/ts/transport/usecases/detail-__name__.usecase.ts
 new file mode 100644
-index 0000000000000000000000000000000000000000..5f9648face777de6c1266eedc8ef5f859dde28da
+index 0000000000000000000000000000000000000000..013189108403af28c754eed712d03a6bc0c11992
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/transport/usecases/detail-__name__.usecase.ts
 @@ -0,0 +1,14 @@
@@ -293,17 +293,17 @@ index 0000000000000000000000000000000000000000..5f9648face777de6c1266eedc8ef5f85
 +
 +@Injectable()
 +export class Detail<%= classify(name) %>UseCase extends QueryHandler<<%= classify(name) %>Entity> {
-+	constructor(private readonly <%= name %>Repository: <%= classify(name) %>Repository) {
++	constructor(private readonly <%= lowercased(name) %>Repository: <%= classify(name) %>Repository) {
 +		super();
 +	}
 +
 +	async query(id: string): Promise<<%= classify(name) %>Entity> {
-+		return this.<%= name %>Repository.findByIdOrThrow({ id });
++		return this.<%= lowercased(name) %>Repository.findByIdOrThrow({ id });
 +	}
 +}
 diff --git a/dist/lib/resource/files/ts/transport/usecases/find-__name__.usecase.ts b/dist/lib/resource/files/ts/transport/usecases/find-__name__.usecase.ts
 new file mode 100644
-index 0000000000000000000000000000000000000000..7753c48799a9aec7bb4809fec70e3cf79e470d69
+index 0000000000000000000000000000000000000000..28d33c25d4f24bf166eaf9f2008c21e65b084cec
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/transport/usecases/find-__name__.usecase.ts
 @@ -0,0 +1,15 @@
@@ -314,17 +314,17 @@ index 0000000000000000000000000000000000000000..7753c48799a9aec7bb4809fec70e3cf7
 +
 +@Injectable()
 +export class Find<%= classify(name) %>UseCase extends QueryHandler<PaginationResponse<<%= classify(name) %>Entity>> {
-+	constructor(private readonly <%= name %>Repository: <%= classify(name) %>Repository) {
++	constructor(private readonly <%= lowercased(name) %>Repository: <%= classify(name) %>Repository) {
 +		super();
 +	}
 +
 +	async query(filter: Filter<%= classify(name) %>Dto): Promise<PaginationResponse<<%= classify(name) %>Entity>> {
-+		return this.<%= name %>Repository.findPaginated(filter);
++		return this.<%= lowercased(name) %>Repository.findPaginated(filter);
 +	}
 +}
 diff --git a/dist/lib/resource/files/ts/transport/usecases/update-__name__.usecase.ts b/dist/lib/resource/files/ts/transport/usecases/update-__name__.usecase.ts
 new file mode 100644
-index 0000000000000000000000000000000000000000..77400f8905e002583626b9f3784c91c5a7a2c6a7
+index 0000000000000000000000000000000000000000..af7be2594d932247e02908de839e23263cf65da1
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/transport/usecases/update-__name__.usecase.ts
 @@ -0,0 +1,14 @@
@@ -334,50 +334,114 @@ index 0000000000000000000000000000000000000000..77400f8905e002583626b9f3784c91c5
 +
 +@Injectable()
 +export class Update<%= classify(name) %>UseCase extends ExecuteHandler<<%= classify(name) %>Entity> {
-+	constructor(private readonly <%= name %>Repository: <%= classify(name) %>Repository) {
++	constructor(private readonly <%= lowercased(name) %>Repository: <%= classify(name) %>Repository) {
 +		super();
 +	}
 +
 +	async execute(id: string, data: Update<%= classify(name) %>Dto): Promise<<%= classify(name) %>Entity> {
-+		return this.<%= name %>Repository.updateById({ id, data });
++		return this.<%= lowercased(name) %>Repository.updateById({ id, data });
 +	}
 +}
 diff --git a/dist/lib/resource/resource.factory.js b/dist/lib/resource/resource.factory.js
-index ad2dc73e633741883d303dabd95e6462de5f99d5..f1b0a6167bbd00bd477dc7a2e3f5bb4db9c991f7 100644
+index ad2dc73e633741883d303dabd95e6462de5f99d5..65f6cdee1a6d645df32023009a5576af4e0b30cf 100644
 --- a/dist/lib/resource/resource.factory.js
 +++ b/dist/lib/resource/resource.factory.js
-@@ -43,12 +43,11 @@ function transform(options) {
+@@ -43,36 +43,8 @@ function transform(options) {
      return target;
  }
  function generate(options) {
 -    return (context) => (0, schematics_1.apply)((0, schematics_1.url)((0, core_1.join)('./files', options.language)), [
-+    return (context) => (0, schematics_1.apply)((0, schematics_1.url)((0, core_1.join)('./files', options.language, options.transport ? 'transport' : 'modules')), [
++    return (context) => (0, schematics_1.apply)((0, schematics_1.url)((0, core_1.join)('./files', options.language, options.type)), [
          (0, schematics_1.filter)((path) => {
-             if (path.endsWith('.dto.ts')) {
-                 return (options.type !== 'graphql-code-first' &&
+-            if (path.endsWith('.dto.ts')) {
+-                return (options.type !== 'graphql-code-first' &&
 -                    options.type !== 'graphql-schema-first' &&
 -                    options.crud);
-+                    options.type !== 'graphql-schema-first');
-             }
-             if (path.endsWith('.input.ts')) {
-                 return ((options.type === 'graphql-code-first' ||
+-            }
+-            if (path.endsWith('.input.ts')) {
+-                return ((options.type === 'graphql-code-first' ||
+-                    options.type === 'graphql-schema-first') &&
+-                    options.crud);
+-            }
+-            if (path.endsWith('.resolver.ts') ||
+-                path.endsWith('.resolver.__specFileSuffix__.ts')) {
+-                return (options.type === 'graphql-code-first' ||
+-                    options.type === 'graphql-schema-first');
+-            }
+-            if (path.endsWith('.graphql')) {
+-                return options.type === 'graphql-schema-first' && options.crud;
+-            }
+-            if (path.endsWith('controller.ts') ||
+-                path.endsWith('.controller.__specFileSuffix__.ts')) {
+-                return options.type === 'microservice' || options.type === 'rest';
+-            }
+-            if (path.endsWith('.gateway.ts') || path.endsWith('.gateway.__specFileSuffix__.ts')) {
+-                return options.type === 'ws';
+-            }
+-            if (path.includes('@ent')) {
+-                return options.crud;
+-            }
+             return true;
+         }),
+         options.spec
 diff --git a/dist/lib/resource/schema.json b/dist/lib/resource/schema.json
-index 6251b45798c8ceaaedc94e38513b03d60f87130a..bf879a902f0e2a12d3e1c0dff78e23adf8b8375e 100644
+index 6251b45798c8ceaaedc94e38513b03d60f87130a..b42df869c66ae8be6592bdb8fbf3bd2795d978f6 100644
 --- a/dist/lib/resource/schema.json
 +++ b/dist/lib/resource/schema.json
-@@ -81,12 +81,11 @@
+@@ -44,35 +44,17 @@
+     "type": {
+       "type": "string",
+       "description": "The transport layer.",
+-      "default": "rest",
++      "default": "transport",
+       "enum": [
+-        "rest",
+-        "graphql-code-first",
+-        "graphql-schema-first",
+-        "microservice",
+-        "ws"
++        "transport",
++        "modules"
+       ],
+       "x-prompt": {
+         "message": "What transport layer do you use?",
+         "type": "list",
+         "items": [
+-          { "value": "rest", "label": "REST API" },
+-          {
+-            "value": "graphql-code-first",
+-            "label": "GraphQL (code first)"
+-          },
+-          {
+-            "value": "graphql-schema-first",
+-            "label": "GraphQL (schema first)"
+-          },
+-          {
+-            "value": "microservice",
+-            "label": "Microservice (non-HTTP)"
+-          },
+-          {
+-            "value": "ws",
+-            "label": "WebSockets"
+-          }
++          { "value": "transport", "label": "Transport" },
++          { "value": "modules", "label": "Lib modules" }
+         ]
+       }
+     },
+@@ -80,15 +62,6 @@
+       "type": "boolean",
        "description": "Flag to skip the module import.",
        "default": false
-     },
+-    },
 -    "crud": {
-+    "transport": {
-       "type": "boolean",
+-      "type": "boolean",
 -      "description": "When true, CRUD entry points are generated.",
 -      "default": true,
-+      "default": false,
-       "x-prompt": {
+-      "x-prompt": {
 -        "message": "Would you like to generate CRUD entry points?",
-+        "message": "This is resource of transport?",
-         "type": "confirmation"
-       }
+-        "type": "confirmation"
+-      }
      }
+   },
+   "required": ["name"]
