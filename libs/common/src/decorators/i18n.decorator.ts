@@ -1,15 +1,44 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import {
+	IsArray,
+	IsBoolean,
+	IsDateString,
+	IsEnum,
+	IsNotEmpty,
+	IsNumber,
+	IsString,
+	IsUrl,
+	Max,
+	MaxLength,
+	Min,
+	MinLength
+} from 'class-validator';
 import { i18nValidationMessage } from 'nestjs-i18n';
 import { getProperty } from './property.decorator';
+import { IsNumberOptions } from 'class-validator/types/decorator/typechecker/IsNumber';
+import * as ValidatorJS from 'validator';
+import { ValidationOptions } from 'class-validator/types/decorator/ValidationOptions';
 
-export type I18nValidationOptions = {
+export type I18nValidationOptions = ValidationOptions & {
 	property?: string;
 };
+
+export function I18nIsNotEmpty(options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		IsNotEmpty({
+			...options,
+			message: i18nValidationMessage('validation.IS_NOT_EMPTY', {
+				property
+			})
+		})(target, propertyKey);
+	};
+}
 
 export function I18nIsString(options?: I18nValidationOptions): PropertyDecorator {
 	return function (target: any, propertyKey: string) {
 		const property = getProperty(target, propertyKey, options);
 		IsString({
+			...options,
 			message: i18nValidationMessage('validation.IS_STRING', {
 				property
 			})
@@ -17,12 +46,131 @@ export function I18nIsString(options?: I18nValidationOptions): PropertyDecorator
 	};
 }
 
-export function I18nIsNotEmpty(options?: I18nValidationOptions): PropertyDecorator {
+export function I18nIsNumber(options?: I18nValidationOptions & IsNumberOptions): PropertyDecorator {
 	return function (target: any, propertyKey: string) {
 		const property = getProperty(target, propertyKey, options);
-		IsNotEmpty({
-			message: i18nValidationMessage('validation.IS_NOT_EMPTY', {
+		IsNumber(options, {
+			...options,
+			message: i18nValidationMessage('validation.IS_NUMBER', {
 				property
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsBoolean(options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		IsBoolean({
+			...options,
+			message: i18nValidationMessage('validation.IS_BOOLEAN', {
+				property
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsEnum(entity: object, options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		const values = Object.values(entity).join(', ');
+		IsEnum(entity, {
+			...options,
+			message: i18nValidationMessage('validation.IS_ENUM', {
+				property,
+				values
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsUrl(
+	options?: I18nValidationOptions & ValidatorJS.IsURLOptions
+): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		IsUrl(options, {
+			...options,
+			message: i18nValidationMessage('validation.IS_URL', {
+				property
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsDateString(
+	options?: I18nValidationOptions & ValidatorJS.IsISO8601Options
+): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		IsDateString(options, {
+			...options,
+			message: i18nValidationMessage('validation.IS_DATE_STRING', {
+				property
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsArray(options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		IsArray({
+			...options,
+			message: i18nValidationMessage('validation.IS_ARRAY', {
+				property
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nMin(value: number, options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		Min(value, {
+			...options,
+			message: i18nValidationMessage('validation.MIN', {
+				property,
+				value
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nMax(value: number, options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		Max(value, {
+			...options,
+			message: i18nValidationMessage('validation.MAX', {
+				property,
+				value
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nMinLength(value: number, options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		MinLength(value, {
+			...options,
+			message: i18nValidationMessage('validation.MIN_LENGTH', {
+				property,
+				value
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nMaxLength(value: number, options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		MaxLength(value, {
+			...options,
+			message: i18nValidationMessage('validation.MAX_LENGTH', {
+				property,
+				value
 			})
 		})(target, propertyKey);
 	};

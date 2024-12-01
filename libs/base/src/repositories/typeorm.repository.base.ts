@@ -1,4 +1,4 @@
-import { DeepPartial, Repository } from 'typeorm';
+import { DeepPartial, In, Repository } from 'typeorm';
 import {
 	CreateOptions,
 	DeleteByIdOptions,
@@ -37,12 +37,12 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 	}
 
 	find(options: FindOptions<T>): Promise<T[]> {
-		const { where, select } = options;
-		return this.repository.find({ where, select });
+		const { where, select, relations } = options;
+		return this.repository.find({ where, select: select as any, relations: relations as any });
 	}
 
 	async findPaginated(options: FindPaginatedOptions<T>): Promise<PaginationResponse<T>> {
-		const { where, select, offset } = options;
+		const { where, select, offset, relations } = options;
 
 		let order = options.order;
 		if (!order) order = {};
@@ -58,7 +58,8 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 			take,
 			skip,
 			order: order as any,
-			select
+			select: select as any,
+			relations: relations as any
 		});
 
 		const totalPage = totalItem < limit ? 1 : Math.floor(totalItem / limit);
@@ -79,94 +80,150 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 	}
 
 	findById(options: FindByIdOptions<T>): Promise<T | null> {
-		const { id, select } = options;
-		return this.repository.findOne({ where: { id } as any, select });
+		const { id, select, relations } = options;
+		return this.repository.findOne({
+			where: { id } as any,
+			select: select as any,
+			relations: relations as any
+		});
 	}
 
 	findOne(options: FindOneOptions<T>): Promise<T | null> {
-		const { where, select } = options;
-		return this.repository.findOne({ where, select });
+		const { where, select, relations } = options;
+		return this.repository.findOne({
+			where,
+			select: select as any,
+			relations: relations as any
+		});
 	}
 
 	async findByIdOrThrow(options: FindByIdOptions<T>): Promise<T> {
-		const { id, select } = options;
-		const entity = await this.repository.findOne({ where: { id } as any, select });
+		const { id, select, relations } = options;
+		const entity = await this.repository.findOne({
+			where: { id } as any,
+			select: select as any,
+			relations: relations as any
+		});
 		if (!entity) this.throwErrorNotFound();
 		return entity;
 	}
 
 	async findOneOrThrow(options: FindOneOptions<T>): Promise<T> {
-		const { where, select } = options;
-		const entity = await this.repository.findOne({ where, select });
+		const { where, select, relations } = options;
+		const entity = await this.repository.findOne({
+			where,
+			select: select as any,
+			relations: relations as any
+		});
 		if (!entity) this.throwErrorNotFound();
 		return entity;
 	}
 
 	async update(options: UpdateManyOptions<T>): Promise<T[]> {
-		const { where, select, data } = options;
-		const entities = await this.repository.find({ where, select });
-		return Promise.all(
-			entities.map((entity) => {
+		const { where, select, data, relations } = options;
+		const entities = await this.repository.find({
+			where,
+			select: select as any,
+			relations: relations as any
+		});
+
+		if (entities.length) {
+			const ids = entities.map((entity) => entity.id);
+			await this.repository.update(
+				{
+					id: In(ids)
+				} as any,
+				data
+			);
+			return entities.map((entity) => {
 				Object.assign(entity, data);
-				return this.repository.save(entity);
-			})
-		);
+				return entity;
+			});
+		}
+
+		return [];
 	}
 
 	async updateOne(options: UpdateOneOptions<T>): Promise<T> {
-		const { where, select, data } = options;
-		const entity = await this.findOne({ where, select });
+		const { where, select, data, relations } = options;
+		const entity = await this.findOne({ where, select, relations: relations as any });
 		if (!entity) this.throwErrorNotFound();
+		await this.repository.update(where, data);
 		Object.assign(entity, data);
-		return this.repository.save(entity);
+		return entity;
 	}
 
 	async updateById(options: UpdateByIdOptions<T>): Promise<T> {
-		const { id, data, select } = options;
-		const entity = await this.findById({ id, select });
+		const { id, data, select, relations } = options;
+		const entity = await this.findById({ id, select, relations: relations as any });
 		if (!entity) this.throwErrorNotFound();
+		await this.repository.update(id, data);
 		Object.assign(entity, data);
-		return this.repository.save(entity);
+		return entity;
 	}
 
 	async delete(options: DeleteManyOptions<T>): Promise<T[]> {
-		const { where, select } = options;
-		const entities = await this.repository.find({ where, select });
-		return this.repository.remove(entities);
+		const { where, select, relations } = options;
+		const entities = await this.repository.find({
+			where,
+			select: select as any,
+			relations: relations as any
+		});
+		if (entities.length) {
+			const ids = entities.map((entity) => entity.id);
+			await this.repository.delete({
+				id: In(ids)
+			} as any);
+		}
+		return entities;
 	}
 
 	async deleteOne(options: DeleteOneOptions<T>): Promise<T> {
-		const { where, select } = options;
-		const entity = await this.findOne({ where, select });
+		const { where, select, relations } = options;
+		const entity = await this.findOne({ where, select, relations: relations as any });
 		if (!entity) this.throwErrorNotFound();
-		return this.repository.remove(entity);
+		await this.repository.delete(where);
+		return entity;
 	}
 
 	async deleteById(options: DeleteByIdOptions<T>): Promise<T> {
-		const { id, select } = options;
-		const entity = await this.findById({ id, select });
+		const { id, select, relations } = options;
+		const entity = await this.findById({ id, select, relations: relations as any });
 		if (!entity) this.throwErrorNotFound();
-		return this.repository.remove(entity);
+		await this.repository.delete(id);
+		return entity;
 	}
 
 	async softDelete(options: SoftDeleteManyOptions<T>): Promise<T[]> {
-		const { where, select } = options;
-		const entities = await this.repository.find({ where, select });
-		return this.repository.softRemove(entities);
+		const { where, select, relations } = options;
+		const entities = await this.repository.find({
+			where,
+			select: select as any,
+			relations: relations as any
+		});
+		if (entities.length) {
+			const ids = entities.map((entity) => entity.id);
+			await this.repository.softDelete({
+				id: In(ids)
+			} as any);
+		}
+		return entities;
 	}
 
 	async softDeleteOne(options: SoftDeleteOneOptions<T>): Promise<T> {
-		const { where, select } = options;
-		const entity = await this.findOne({ where, select });
+		const { where, select, relations } = options;
+		const entity = await this.findOne({ where, select, relations: relations as any });
 		if (!entity) this.throwErrorNotFound();
-		return this.repository.softRemove(entity);
+		await this.repository.softDelete(where);
+		return entity;
 	}
 
 	async softDeleteById(options: SoftDeleteByIdOptions<T>): Promise<T> {
-		const { id, select } = options;
-		const entity = await this.findById({ id, select });
+		const { id, select, relations } = options;
+		const entity = await this.findById({ id, select, relations: relations as any });
 		if (!entity) this.throwErrorNotFound();
-		return this.repository.softRemove(entity);
+		await this.repository.softDelete(id);
+		return entity;
 	}
 
 	async exists(options: FindOneOptions<T>): Promise<boolean> {

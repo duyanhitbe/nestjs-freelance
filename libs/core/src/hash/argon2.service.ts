@@ -1,12 +1,12 @@
 import { HashService } from '@lib/core/hash/hash.service.abstract';
-import { hash, verify } from 'argon2';
+import * as argon2 from 'argon2';
 
 export class Argon2Service extends HashService {
 	hash(password: string): Promise<string> {
-		return hash(password);
+		return argon2.hash(password);
 	}
 
 	verify(hashedPassword: string, password: string): Promise<boolean> {
-		return verify(hashedPassword, password);
+		return argon2.verify(hashedPassword, password);
 	}
 }
