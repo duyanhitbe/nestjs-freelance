@@ -1,6 +1,16 @@
 {
-  "IS_STRING": "{property} bắt buộc phải là kiểu chuỗi",
+  "IS_STRING": "{property} bắt buộc phải một chuỗi",
   "IS_NOT_EMPTY": "{property} không được bỏ trống",
+  "IS_NUMBER": "{property} bắt buộc phải một số",
+  "IS_BOOLEAN": "{property} bắt buộc phải là kiểu boolean",
+  "IS_ENUM": "{property} bắt buộc phải là trong các giá trị: {values}",
+  "IS_DATE_STRING": "{property} bắt buộc phải là một chuỗi ISO Date",
+  "IS_ARRAY": "{property} bắt buộc phải là một mảng",
+  "IS_URL": "{property} bắt buộc phải là một đường dẫn",
+  "MIN": "{property} phải lớn hơn hoặc bằng {value}",
+  "MAX": "{property} phải nhỏ hơn hoặc bằng {value}",
+  "MIN_LENGTH": "{property} phải có ít nhất {value} ký tự",
+  "MAX_LENGTH": "{property} không được vượt quá {value} ký tự",
   "EXISTS": "{property} đã tồn tại. Vui lòng kiểm tra lại!",
   "NOT_EXISTS": "{property} không tồn tại. Vui lòng kiểm tra lại!"
 }
