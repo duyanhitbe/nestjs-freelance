@@ -11,4 +11,9 @@ export interface Env {
 	POSTGRES_DB: string;
 	JWT_SECRET: string;
 	RABBIT_MQ_URL: string;
+	REDIS_HOST: string;
+	REDIS_PORT: string;
+	REDIS_USER: string;
+	REDIS_PASSWORD: string;
+	REDIS_DB: string;
 }

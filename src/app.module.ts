@@ -13,6 +13,7 @@ import { HashModule } from '@lib/core/hash/hash.module';
 import { AppRepositoryModule } from './app.repository.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { RedisModule } from '@lib/core/redis/redis.module';
 
 @Module({
 	imports: [
@@ -28,6 +29,7 @@ import { join } from 'path';
 		JwtModule.forRoot(),
 		HashModule.forRoot(),
 		TypeormModule.forRoot(),
+		RedisModule.forRoot(),
 		AppRepositoryModule,
 		UserModule,
 		AuthModule

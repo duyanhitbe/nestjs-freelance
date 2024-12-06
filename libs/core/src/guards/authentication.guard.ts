@@ -11,6 +11,7 @@ import { I18nExceptionService } from '@lib/core/i18n';
 import { UserEntity, UserRepository } from '@lib/modules/user';
 import { RequestUser } from '@lib/common/interfaces';
 import { Reflector } from '@nestjs/core';
+import { REDIS_PREFIX_KEY, RedisService } from '@lib/core/redis';
 
 export const PUBLIC_METADATA_KEY = 'PUBLIC_METADATA_KEY';
 
@@ -23,7 +24,8 @@ export class AuthenticationGuard implements CanActivate {
 		private readonly userRepository: UserRepository,
 		private readonly jwtService: JwtService,
 		private readonly i18nExceptionService: I18nExceptionService,
-		private readonly reflector: Reflector
+		private readonly reflector: Reflector,
+		private readonly redisService: RedisService
 	) {}
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -69,6 +71,12 @@ export class AuthenticationGuard implements CanActivate {
 	}
 
 	private async getUserByRole(userId: string, role: ENUM_TOKEN_ROLE): Promise<RequestUser> {
+		const cachedUser = await this.redisService.get<RequestUser>({
+			prefix: REDIS_PREFIX_KEY.AUTHENTICATION.REQUEST_USER,
+			key: userId
+		});
+		if (cachedUser) return cachedUser;
+
 		switch (role) {
 			case ENUM_TOKEN_ROLE.USER:
 				const user = await this.userRepository.findById({
@@ -76,7 +84,13 @@ export class AuthenticationGuard implements CanActivate {
 					select: ['id', 'username']
 				});
 				if (!user) this.i18nExceptionService.throwNotFoundEntity(UserEntity.name);
-				return { id: user.id, username: user.username, role: role };
+				const userResult = { id: user.id, username: user.username, role: role };
+				await this.redisService.setNx({
+					prefix: REDIS_PREFIX_KEY.AUTHENTICATION.REQUEST_USER,
+					key: userId,
+					value: userResult
+				});
+				return userResult;
 		}
 	}
 }
