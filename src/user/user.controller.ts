@@ -9,12 +9,12 @@ import {
 	SwaggerCreatedResponse,
 	SwaggerListResponse,
 	SwaggerOkResponse,
-	UseUserAuth
+	UseAuth
 } from '@lib/common/decorators';
 import { PaginationResponse } from '@lib/base/dto';
 
 @Controller('users')
-@UseUserAuth()
+@UseAuth()
 export class UserController {
 	constructor(
 		private readonly createUserUseCase: CreateUserUseCase,

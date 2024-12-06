@@ -4,6 +4,7 @@ import { JwtService } from '@lib/core/jwt/jwt.abstract';
 import { JwtPayload } from './jwt.type';
 import { ConfigService } from '@nestjs/config';
 import { Env } from '@lib/common/interfaces';
+import { ENUM_TOKEN_ROLE } from '@lib/core/jwt/jwt.enum';
 
 @Injectable()
 export class JwtServiceImp extends JwtService {
@@ -24,8 +25,8 @@ export class JwtServiceImp extends JwtService {
 		return secret;
 	}
 
-	async sign(sub: string, expiresIn: number): Promise<string> {
-		const payload = { sub };
+	async sign(sub: string, role: ENUM_TOKEN_ROLE, expiresIn: number): Promise<string> {
+		const payload = { sub, role };
 		const options: JwtSignOptions = { secret: this.secret, expiresIn };
 		return this.jwtService.signAsync(payload, options);
 	}

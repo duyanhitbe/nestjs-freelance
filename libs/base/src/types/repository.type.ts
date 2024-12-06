@@ -51,6 +51,7 @@ export type Relation<T extends BaseEntity> = string[];
 export type CreateOptions<T extends BaseEntity> = {
 	data: Data<T>;
 	select?: Select<T>;
+	returning?: (keyof T)[];
 };
 
 export type FindOptions<T extends BaseEntity> = {

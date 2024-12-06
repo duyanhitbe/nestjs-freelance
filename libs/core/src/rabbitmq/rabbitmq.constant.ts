@@ -1,0 +1,5 @@
+export const RABBITMQ_PATTERNS = {
+	SEND_MAIL: { cmd: 'SEND_MAIL' },
+	CREATE_ORDER: { cmd: 'CREATE_ORDER' },
+	PROCESS_PAYMENT: { cmd: 'PROCESS_PAYMENT' }
+};

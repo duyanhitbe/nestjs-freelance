@@ -1,7 +1,8 @@
-import { JwtPayload } from '@lib/core/jwt/jwt.type';
+import { JwtPayload } from './jwt.type';
+import { ENUM_TOKEN_ROLE } from './jwt.enum';
 
 export abstract class JwtService {
-	abstract sign(sub: string, expiresIn: number): Promise<string>;
+	abstract sign(sub: string, role: ENUM_TOKEN_ROLE, expiresIn: number): Promise<string>;
 
 	abstract verify(token: string): Promise<JwtPayload>;
 

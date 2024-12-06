@@ -1,4 +1,4 @@
-import { DeepPartial, In, Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import {
 	CreateOptions,
 	DeleteByIdOptions,
@@ -19,10 +19,14 @@ import { BaseTypeormEntity } from '../entities';
 import { PaginationResponse } from '../dto';
 import { BaseRepository } from '../repositories/repository.base.abstract';
 import { I18nExceptionService } from '@lib/core/i18n';
+import { getMeta, getOffset } from '@lib/common/helpers';
+import { Logger } from '@nestjs/common';
 
 export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseRepository<T> {
+	protected readonly logger = new Logger(this.constructor.name);
+
 	constructor(
-		private readonly repository: Repository<T>,
+		protected readonly repository: Repository<T>,
 		private readonly entityName: string,
 		private readonly i18nExceptionService: I18nExceptionService
 	) {}
@@ -31,9 +35,18 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 		this.i18nExceptionService.throwNotFoundEntity(this.entityName);
 	}
 
-	create(options: CreateOptions<T>): Promise<T> {
-		const { data } = options;
-		return this.repository.create(data as DeepPartial<T>).save();
+	async create(options: CreateOptions<T>): Promise<T> {
+		const { data, returning } = options;
+		const result = await this.repository
+			.createQueryBuilder()
+			.insert()
+			.into(this.repository.target) // Specify the target entity/table
+			.values(data as any)
+			.returning(returning as any) // Add RETURNING clause
+			.execute();
+
+		// Extract and return the first row of the inserted data
+		return result.raw[0] as T;
 	}
 
 	find(options: FindOptions<T>): Promise<T[]> {
@@ -51,7 +64,7 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 		const limit = +(options.limit || 25);
 		const page = +(options.page || 1);
 		const take = limit || 10;
-		const skip = offset || limit * (page - 1) || 0;
+		const skip = offset || getOffset(limit, page);
 
 		const [data, totalItem] = await this.repository.findAndCount({
 			where,
@@ -62,20 +75,11 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 			relations: relations as any
 		});
 
-		const totalPage = totalItem < limit ? 1 : Math.floor(totalItem / limit);
-		const prevPage = page === 1 ? null : page - 1;
-		const nextPage = page === totalPage ? null : page + 1;
+		const meta = getMeta(limit, page, totalItem);
 
 		return {
 			data,
-			meta: {
-				limit,
-				page,
-				totalItem,
-				totalPage,
-				prevPage,
-				nextPage
-			}
+			meta: meta as any
 		};
 	}
 

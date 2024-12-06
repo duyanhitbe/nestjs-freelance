@@ -19,14 +19,14 @@ export const options: TypeOrmModuleOptions = {
 	database: configService.get('POSTGRES_DB'),
 	autoLoadEntities: true,
 	synchronize: false,
-	logger: new TypeOrmLogger()
+	logger: new TypeOrmLogger(),
+	migrationsTableName: 'migrations',
+	migrationsRun: configService.get('TYPEORM_MIGRATION_RUN') === 'true',
+	migrationsTransactionMode: 'each',
+	migrations: [Initial1732268798149, CreateUser1733021046881]
 };
 
 export default new DataSource({
 	...options,
-	entities: ['**/*.typeorm.entity.ts'],
-	migrationsTableName: 'migrations',
-	migrationsRun: false,
-	migrationsTransactionMode: 'each',
-	migrations: [Initial1732268798149, CreateUser1733021046881]
+	entities: ['**/*.typeorm.entity.ts']
 } as any);

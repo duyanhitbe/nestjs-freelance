@@ -1,14 +1,14 @@
 import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common';
 import { Response } from 'express';
-import { I18nService } from 'nestjs-i18n';
 import { QueryFailedError } from 'typeorm';
 import { removeBracket, snakeToCamel } from '@lib/common/helpers';
+import { TranslateService } from '@lib/core/i18n';
 
 @Catch(QueryFailedError)
 export class TypeormFilter implements ExceptionFilter {
 	private readonly logger = new Logger(this.constructor.name);
 
-	constructor(private readonly i18nService: I18nService) {}
+	constructor(private readonly translateService: TranslateService) {}
 
 	catch(exception: QueryFailedError, host: ArgumentsHost) {
 		const ctx = host.switchToHttp();
@@ -20,10 +20,15 @@ export class TypeormFilter implements ExceptionFilter {
 		this.logger.error(`code = ${code} | detail = ${detail}`);
 
 		if (code === '23505') {
+			const message = detail.split(' ')[1];
+			const field = removeBracket(snakeToCamel(message.split('=')[0])).toUpperCase();
+			const translatedField = this.translateService.field(field);
+			const error = this.translateService.existsMessage(translatedField);
+
 			response.status(409).json({
 				statusCode: 409,
 				message: 'Conflict',
-				errors: [detail]
+				errors: [error]
 			});
 			return;
 		}

@@ -10,11 +10,11 @@ import { SwaggerListResponseType, SwaggerOptions, SwaggerResponseType } from '..
 import { getProperty } from './property.decorator';
 
 export function SwaggerCreatedResponse(options: SwaggerOptions) {
-	const { summary, type } = options;
+	const { summary, type, isArray } = options;
 
 	return applyDecorators(
 		ApiOperation({ summary }),
-		ApiCreatedResponse({ type: SwaggerResponseType(type, 201) })
+		ApiCreatedResponse({ type: SwaggerResponseType(type, 201, isArray) })
 	);
 }
 
@@ -28,11 +28,11 @@ export function SwaggerOkResponse(options: SwaggerOptions) {
 }
 
 export function SwaggerListResponse(options: SwaggerOptions) {
-	const { summary, type } = options;
+	const { summary, type, paginated = true, isEnum = false, enumName = '' } = options;
 
 	return applyDecorators(
 		ApiOperation({ summary }),
-		ApiOkResponse({ type: SwaggerListResponseType(type) })
+		ApiOkResponse({ type: SwaggerListResponseType(type, paginated, isEnum, enumName) })
 	);
 }
 

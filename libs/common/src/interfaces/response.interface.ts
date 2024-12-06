@@ -16,5 +16,5 @@ export interface IListResponse {
 	path: string;
 	duration: string;
 	data: any[];
-	meta: PaginationMeta;
+	meta?: PaginationMeta;
 }

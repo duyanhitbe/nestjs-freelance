@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { LoginUserDto, LoginUserEntity } from '@lib/modules/auth';
 import { UserEntity, UserRepository } from '@lib/modules/user';
-import { JwtService } from '@lib/core/jwt';
+import { ENUM_TOKEN_ROLE, JwtService } from '@lib/core/jwt';
 import { I18nExceptionService } from '@lib/core/i18n';
 import { HashService } from '@lib/core/hash';
 import { ExecuteHandler } from '@lib/common/abstracts';
@@ -33,7 +33,7 @@ export class LoginUserUseCase extends ExecuteHandler<LoginUserEntity> {
 		}
 
 		const expiresIn = 60 * 60 * 24;
-		const accessToken = await this.jwtService.sign(user.id, expiresIn);
+		const accessToken = await this.jwtService.sign(user.id, ENUM_TOKEN_ROLE.USER, expiresIn);
 
 		return {
 			accessToken,

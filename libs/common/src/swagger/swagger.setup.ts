@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export function setupSwagger(app: INestApplication) {
 	const config = new DocumentBuilder()
-		.setTitle('Freelance API Documentation')
+		.setTitle('TicketBox API Documentation')
 		.addGlobalParameters({
 			in: 'header',
 			required: false,
