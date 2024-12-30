@@ -24,7 +24,7 @@ export class AuthorizationGuard implements CanActivate {
 			context.getClass(),
 			context.getHandler()
 		]);
-		if (!user && isPublic) return true;
+		if (isPublic) return true;
 
 		const roles = this.reflector.getAllAndOverride<ENUM_TOKEN_ROLE[]>(TOKEN_ROLE_METADATA_KEY, [
 			context.getClass(),

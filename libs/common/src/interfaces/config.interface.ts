@@ -3,7 +3,9 @@ export interface Env {
 	PORT: string;
 	BASE_URL: string;
 	IS_DEBUG: string;
-	TYPEORM_DEBUG: string;
+	IS_DEBUG_HTTP_RESPONSE: string;
+	IS_DEBUG_REDIS: string;
+	IS_DEBUG_TYPEORM: string;
 	POSTGRES_HOST: string;
 	POSTGRES_PORT: string;
 	POSTGRES_USER: string;

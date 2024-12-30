@@ -29,7 +29,9 @@ export class ResponseInterceptor implements NestInterceptor {
 				const duration = `${(end - start).toFixed(0)}ms`;
 
 				this.logger.log(`[${method}] ${path} | ${duration}`, 'Incoming Request');
-				this.logger.debug(data, 'Incoming Request');
+				if (process.env.IS_DEBUG_HTTP_RESPONSE === 'true') {
+					this.logger.debug(data, 'Incoming Request');
+				}
 
 				if (data.data && data.meta) {
 					return {

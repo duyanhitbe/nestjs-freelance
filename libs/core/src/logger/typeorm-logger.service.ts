@@ -5,7 +5,7 @@ export class TypeOrmLogger implements Logger {
 	private readonly logger = new LoggerService(TypeOrmLogger.name);
 
 	get isDebug(): boolean {
-		return process.env.TYPEORM_DEBUG?.toLocaleLowerCase() === 'true';
+		return process.env.IS_DEBUG_TYPEORM === 'true';
 	}
 
 	private buildMessage(query: string, parameters: any[] = [], time?: number) {

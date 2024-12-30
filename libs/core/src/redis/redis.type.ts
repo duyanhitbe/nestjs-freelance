@@ -1,6 +1,8 @@
-export type RedisSetOptions = {
-	key: string;
+export type RedisKeyOption = {
+	key?: string | (string | number | null | undefined)[];
 	prefix: string;
+};
+export type RedisSetOptions = RedisKeyOption & {
 	value: any;
 	/**
 	 * Second
@@ -8,7 +10,5 @@ export type RedisSetOptions = {
 	ttl: number;
 };
 export type RedisSetNxOptions = Omit<RedisSetOptions, 'ttl'>;
-export type RedisGetOptions = {
-	key: string;
-	prefix: string;
-};
+export type RedisGetOptions = RedisKeyOption;
+export type RedisDelOptions = RedisKeyOption;

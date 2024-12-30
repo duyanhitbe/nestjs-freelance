@@ -111,5 +111,9 @@
     "patchedDependencies": {
       "@nestjs/schematics@10.2.3": "patches/@nestjs__schematics@10.2.3.patch"
     }
-  }
+  },
+  "engines": {
+    "node": ">=v22.12.0"
+  },
+  "packageManager": "pnpm@9.15.1"
 }

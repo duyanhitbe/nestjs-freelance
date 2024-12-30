@@ -20,6 +20,7 @@ import { getProperty } from './property.decorator';
 import { IsNumberOptions } from 'class-validator/types/decorator/typechecker/IsNumber';
 import * as ValidatorJS from 'validator';
 import { ValidationOptions } from 'class-validator/types/decorator/ValidationOptions';
+import { IsFromDateBeforeToDate, IsToDateAfterFromDate } from '@lib/core/validators';
 
 export type I18nValidationOptions = ValidationOptions & {
 	property?: string;
@@ -27,6 +28,11 @@ export type I18nValidationOptions = ValidationOptions & {
 
 export type I18nLengthValidationOptions = I18nValidationOptions & {
 	isArray?: boolean;
+};
+
+export type I18nDurationDateValidationOptions = ValidationOptions & {
+	fromDateProperty?: string;
+	toDateProperty?: string;
 };
 
 export function I18nIsNotEmpty(options?: I18nValidationOptions): PropertyDecorator {
@@ -233,6 +239,37 @@ export function I18nMaxLength(
 					value
 				}
 			)
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsFromDateBeforeToDate(
+	options?: I18nDurationDateValidationOptions
+): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const fromDateProperty = getProperty(target, options?.fromDateProperty || propertyKey);
+		const toDateProperty = getProperty(target, options?.toDateProperty || 'toDate');
+
+		IsFromDateBeforeToDate({
+			message: i18nValidationMessage('validation.IS_FROM_DATE_BEFORE_TO_DATE', {
+				fromDate: fromDateProperty,
+				toDate: toDateProperty
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsToDateAfterFromDate(
+	options?: I18nDurationDateValidationOptions
+): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const fromDateProperty = getProperty(target, options?.fromDateProperty || 'fromDate');
+		const toDateProperty = getProperty(target, options?.toDateProperty || propertyKey);
+		IsToDateAfterFromDate({
+			message: i18nValidationMessage('validation.IS_TO_DATE_AFTER_FROM_DATE', {
+				fromDate: fromDateProperty,
+				toDate: toDateProperty
+			})
 		})(target, propertyKey);
 	};
 }

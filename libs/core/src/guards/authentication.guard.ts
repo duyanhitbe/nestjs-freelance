@@ -1,3 +1,8 @@
+import { RequestUser } from '@lib/common/interfaces';
+import { I18nExceptionService } from '@lib/core/i18n';
+import { ENUM_TOKEN_ROLE, JwtService } from '@lib/core/jwt';
+import { REDIS_PREFIX_KEY, RedisService } from '@lib/core/redis';
+import { UserEntity, UserRepository } from '@lib/modules/user';
 import {
 	CanActivate,
 	ExecutionContext,
@@ -6,12 +11,7 @@ import {
 	Injectable,
 	Logger
 } from '@nestjs/common';
-import { ENUM_TOKEN_ROLE, JwtService } from '@lib/core/jwt';
-import { I18nExceptionService } from '@lib/core/i18n';
-import { UserEntity, UserRepository } from '@lib/modules/user';
-import { RequestUser } from '@lib/common/interfaces';
 import { Reflector } from '@nestjs/core';
-import { REDIS_PREFIX_KEY, RedisService } from '@lib/core/redis';
 
 export const PUBLIC_METADATA_KEY = 'PUBLIC_METADATA_KEY';
 
@@ -71,11 +71,11 @@ export class AuthenticationGuard implements CanActivate {
 	}
 
 	private async getUserByRole(userId: string, role: ENUM_TOKEN_ROLE): Promise<RequestUser> {
-		const cachedUser = await this.redisService.get<RequestUser>({
+		const cachedData = await this.redisService.get<RequestUser>({
 			prefix: REDIS_PREFIX_KEY.AUTHENTICATION.REQUEST_USER,
 			key: userId
 		});
-		if (cachedUser) return cachedUser;
+		if (cachedData) return cachedData;
 
 		switch (role) {
 			case ENUM_TOKEN_ROLE.USER:
@@ -84,13 +84,13 @@ export class AuthenticationGuard implements CanActivate {
 					select: ['id', 'username']
 				});
 				if (!user) this.i18nExceptionService.throwNotFoundEntity(UserEntity.name);
-				const userResult = { id: user.id, username: user.username, role: role };
-				await this.redisService.setNx({
+				const resultUser = { id: user.id, username: user.username, role: role };
+				this.redisService.setNx({
 					prefix: REDIS_PREFIX_KEY.AUTHENTICATION.REQUEST_USER,
 					key: userId,
-					value: userResult
+					value: resultUser
 				});
-				return userResult;
+				return resultUser;
 		}
 	}
 }
