@@ -68,7 +68,7 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 
 	async findPaginated(options: FindPaginatedOptions<T>): Promise<PaginationResponse<T>> {
 		const {
-			alias = 'entity',
+			alias = this.constructor.name,
 			select,
 			relations,
 			where,
@@ -82,7 +82,10 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 		const { limit, offset } = getPageLimitOffset(options);
 		const queryBuilder = this.repository
 			.createQueryBuilder(alias)
-			.where('status = :status', { status });
+			.where(`${alias}.status = :status`, { status });
+		const countQueryBuilder = this.repository
+			.createQueryBuilder(alias)
+			.where(`${alias}.status = :status`, { status });
 
 		if (relations) {
 			relations.forEach((relation) => {
@@ -92,6 +95,7 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 
 		if (where) {
 			queryBuilder.andWhere(where);
+			countQueryBuilder.andWhere(where);
 		}
 
 		if (select) {
@@ -103,6 +107,7 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 
 		if (search && searchFields) {
 			this.addSearchFields(queryBuilder, alias, searchFields, search);
+			this.addSearchFields(countQueryBuilder, alias, searchFields, search);
 		}
 
 		Object.entries(options.order || {}).forEach(([key, value]) => {
@@ -112,7 +117,7 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 
 		const [data, count] = await Promise.all([
 			queryBuilder.limit(limit).offset(offset).getMany(),
-			queryBuilder.getCount()
+			countQueryBuilder.getCount()
 		]);
 		const meta = getMeta(options, count);
 
