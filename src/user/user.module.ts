@@ -14,6 +14,7 @@ import { DetailUserUseCase } from './usecases/detail-user.usecase';
 		DeleteUserUseCase,
 		FindUserUseCase,
 		DetailUserUseCase
-	]
+	],
+	exports: [DetailUserUseCase]
 })
 export class UserModule {}
