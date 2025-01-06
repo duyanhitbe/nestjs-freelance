@@ -1,5 +1,8 @@
 {
   "IS_STRING": "{property} bắt buộc phải một chuỗi",
+  "IS_NUMBER_STRING": "{property} bắt buộc phải một chuỗi số",
+  "IS_UUID": "{property} bắt buộc phải một uuid",
+  "IS_EMAIL": "{property} bắt buộc có dạng email",
   "IS_NOT_EMPTY": "{property} không được bỏ trống",
   "IS_NUMBER": "{property} bắt buộc phải một số",
   "IS_BOOLEAN": "{property} bắt buộc phải là kiểu boolean",
@@ -7,10 +10,14 @@
   "IS_DATE_STRING": "{property} bắt buộc phải là một chuỗi ISO Date",
   "IS_ARRAY": "{property} bắt buộc phải là một mảng",
   "IS_URL": "{property} bắt buộc phải là một đường dẫn",
+  "IS_FROM_DATE_BEFORE_TO_DATE": "{fromDate} không được lớn hơn {toDate}",
+  "IS_TO_DATE_AFTER_FROM_DATE": "{toDate} không được nhỏ hơn {fromDate}",
   "MIN": "{property} phải lớn hơn hoặc bằng {value}",
   "MAX": "{property} phải nhỏ hơn hoặc bằng {value}",
   "MIN_LENGTH": "{property} phải có ít nhất {value} ký tự",
   "MAX_LENGTH": "{property} không được vượt quá {value} ký tự",
+  "MIN_LENGTH_ARRAY": "{property} phải có ít nhất {value} phần tử",
+  "MAX_LENGTH_ARRAY": "{property} không được vượt quá {value} phần tử",
   "EXISTS": "{property} đã tồn tại. Vui lòng kiểm tra lại!",
   "NOT_EXISTS": "{property} không tồn tại. Vui lòng kiểm tra lại!"
 }

@@ -1,40 +1,74 @@
 services:
   app:
-    image: nestjs-freelance-be
+    image: duyanhit/nestjs-freelance-be:latest
     container_name: nestjs-freelance-be
+    env_file: .env
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=local
-      - PORT=3000
-      - IS_DEBUG=true
-      - TYPEORM_DEBUG=true
-      - BASE_URL=http://localhost:3000
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=nestjs_freelance
-      - JWT_SECRET=nx2Hb3PaSHAPVmyEdvznZCQ5aSaq4IUH
     depends_on:
       - postgres
+      - rabbit
+      - redis
     volumes:
       - ./public:/app/public
+    networks:
+      - app
+      - postgres
+      - redis
+      - rabbitmq
+      - ngrok
 
   postgres:
-    image: postgres:16
+    image: postgres:17
+    container_name: nestjs-freelance-postgres
+    env_file: .env
     restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: nestjs_freelance
-    ports:
-      - '5433:5432'
     volumes:
-      - nestjs-freelance-postgres:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - postgres
+
+  rabbit:
+    image: rabbitmq:4.1-rc-management
+    container_name: nestjs-freelance-rabbit
+    env_file: .env
+    restart: always
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+      - rabbitmq:/var/log/rabbitmq
+    networks:
+      - rabbitmq
+
+  redis:
+    image: redis:7
+    container_name: nestjs-freelance-redis
+    env_file: .env
+    restart: always
+    volumes:
+      - redis:/data
+    networks:
+      - redis
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: nestjs-freelance-ngrok
+    env_file: .env
+    command: http http://app:3000 --log=stdout
+    depends_on:
+      - app
+    networks:
+      - app
+
+networks:
+  app:
+  postgres:
+  redis:
+  rabbitmq:
+  ngrok:
 
 volumes:
-  nestjs-freelance-postgres:
+  postgres:
+  rabbitmq:
+  redis:

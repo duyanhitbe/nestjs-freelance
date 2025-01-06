@@ -19,4 +19,6 @@ export interface Env {
 	REDIS_USER: string;
 	REDIS_PASSWORD: string;
 	REDIS_DB: string;
+	GMAIL_USER: string;
+	GMAIL_PASS: string;
 }

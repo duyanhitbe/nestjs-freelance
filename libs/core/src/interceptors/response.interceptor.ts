@@ -12,7 +12,6 @@ export class ResponseInterceptor implements NestInterceptor {
 		const request = context.switchToHttp().getRequest<Request>();
 		const statusCode = response.statusCode;
 		const start = performance.now();
-
 		const path = request.path;
 		const method = request.method;
 

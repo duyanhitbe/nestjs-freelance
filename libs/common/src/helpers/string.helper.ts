@@ -23,3 +23,7 @@ export function randomString(length: number) {
 	}
 	return result;
 }
+
+export function toVND(num: number) {
+	return num.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+}

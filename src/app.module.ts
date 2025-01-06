@@ -21,6 +21,7 @@ import * as session from 'express-session';
 import { LoggerMiddleware } from '@lib/core/middlewares';
 import { ACCESS_TOKEN_EXPIRES } from '@lib/core/jwt';
 import { RedisStore } from 'connect-redis';
+import { NodemailerModule } from '@lib/core/nodemailer/nodemailer.module';
 
 @Module({
 	imports: [
@@ -37,6 +38,7 @@ import { RedisStore } from 'connect-redis';
 		HashModule.forRoot(),
 		TypeormModule.forRoot(),
 		RedisModule.forRoot(),
+		NodemailerModule.forRoot(),
 		AppRepositoryModule,
 		UserModule,
 		AuthModule
