@@ -9,6 +9,7 @@ import { BaseTypeormEntity } from '../entities';
 import { BaseRepository } from '../repositories/repository.base.abstract';
 import {
 	CreateOptions,
+	DecrementOptions,
 	DeleteByIdOptions,
 	DeleteManyOptions,
 	DeleteOneOptions,
@@ -16,6 +17,7 @@ import {
 	FindOneOptions,
 	FindOptions,
 	FindPaginatedOptions,
+	IncrementOptions,
 	SoftDeleteByIdOptions,
 	SoftDeleteManyOptions,
 	SoftDeleteOneOptions,
@@ -23,7 +25,6 @@ import {
 	UpdateManyOptions,
 	UpdateOneOptions
 } from '../types';
-import { ENUM_STATUS } from '@lib/base/enums/status.enum';
 
 export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseRepository<T> {
 	protected readonly logger = new Logger(this.constructor.name);
@@ -41,16 +42,18 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 	protected addSearchFields(
 		queryBuilder: SelectQueryBuilder<T>,
 		alias: string,
-		searchFields: string[],
-		search: string
+		searchFields?: string[],
+		search?: string
 	): void {
-		queryBuilder.andWhere(
-			new Brackets((qb) => {
-				searchFields.forEach((field) => {
-					qb.orWhere(`${alias}.${field} ILIKE '%${search}%'`);
-				});
-			})
-		);
+		if (searchFields && search) {
+			queryBuilder.andWhere(
+				new Brackets((qb) => {
+					searchFields.forEach((field) => {
+						qb.orWhere(`${alias}.${field} ILIKE '%${search}%'`);
+					});
+				})
+			);
+		}
 	}
 
 	async create(options: CreateOptions<T>): Promise<T> {
@@ -74,18 +77,14 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 			where,
 			search,
 			searchFields,
-			status = ENUM_STATUS.ACTIVE
+			status
 		} = options;
 
 		set(options, 'order.created_at', 'DESC');
 
 		const { limit, offset } = getPageLimitOffset(options);
-		const queryBuilder = this.repository
-			.createQueryBuilder(alias)
-			.where(`${alias}.status = :status`, { status });
-		const countQueryBuilder = this.repository
-			.createQueryBuilder(alias)
-			.where(`${alias}.status = :status`, { status });
+		const queryBuilder = this.repository.createQueryBuilder(alias);
+		const countQueryBuilder = this.repository.createQueryBuilder(alias);
 
 		if (relations) {
 			relations.forEach((relation) => {
@@ -96,6 +95,11 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 		if (where) {
 			queryBuilder.andWhere(where);
 			countQueryBuilder.andWhere(where);
+		}
+
+		if (status) {
+			queryBuilder.andWhere({ status });
+			countQueryBuilder.andWhere({ status });
 		}
 
 		if (select) {
@@ -277,5 +281,17 @@ export class BaseTypeormRepository<T extends BaseTypeormEntity> implements BaseR
 	async exists(options: FindOneOptions<T>): Promise<boolean> {
 		const { where } = options;
 		return this.repository.exists({ where });
+	}
+
+	async increment(options: IncrementOptions<T>): Promise<number> {
+		return this.repository
+			.increment(options.where, options.column as any, options.value)
+			.then((res) => res.affected || 0);
+	}
+
+	async decrement(options: DecrementOptions<T>): Promise<number> {
+		return this.repository
+			.decrement(options.where, options.column as any, options.value)
+			.then((res) => res.affected || 0);
 	}
 }

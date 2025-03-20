@@ -1,11 +1,9 @@
 import { config } from 'dotenv';
 
-import { TypeOrmLogger } from '@lib/core/logger';
 import { ConfigService } from '@nestjs/config';
-import { TypeOrmModuleOptions } from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface';
 import { DataSource } from 'typeorm';
-import { Initial1732268798149 } from './migrations/1732268798149-initial';
-import { CreateUser1733021046881 } from './migrations/1733021046881-create-user';
+import { TypeOrmLogger } from '@lib/core/logger';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface';
 
 config();
 const configService = new ConfigService();
@@ -23,7 +21,7 @@ export const options: TypeOrmModuleOptions = {
 	migrationsTableName: 'migrations',
 	migrationsRun: configService.get('TYPEORM_MIGRATION_RUN') === 'true',
 	migrationsTransactionMode: 'each',
-	migrations: [Initial1732268798149, CreateUser1733021046881]
+	migrations: [__dirname + '/migrations/*.ts']
 };
 
 export default new DataSource({

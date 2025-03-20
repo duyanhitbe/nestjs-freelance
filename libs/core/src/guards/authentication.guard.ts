@@ -6,6 +6,7 @@ import { UserEntity, UserRepository } from '@lib/modules/user';
 import {
 	CanActivate,
 	ExecutionContext,
+	ForbiddenException,
 	forwardRef,
 	Inject,
 	Injectable,
@@ -91,6 +92,8 @@ export class AuthenticationGuard implements CanActivate {
 					value: resultUser
 				});
 				return resultUser;
+			default:
+				throw new ForbiddenException('Invalid role');
 		}
 	}
 }

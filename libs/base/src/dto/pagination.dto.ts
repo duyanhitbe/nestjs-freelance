@@ -27,4 +27,18 @@ export class PaginationResponse<T extends BaseEntity> {
 
 	@ApiProperty()
 	meta!: PaginationMeta;
+
+	static empty(): PaginationResponse<any> {
+		return {
+			data: [],
+			meta: {
+				limit: 10,
+				page: 1,
+				totalItem: 0,
+				totalPage: 1,
+				nextPage: null,
+				prevPage: null
+			}
+		};
+	}
 }

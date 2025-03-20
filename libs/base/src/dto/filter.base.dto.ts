@@ -6,6 +6,7 @@ import { Where } from '@lib/base/types';
 import { BaseEntity } from '@lib/base/entities';
 import { I18nIsEnum } from '@lib/common/decorators/i18n.decorator';
 import { ENUM_STATUS } from '../enums/status.enum';
+import { RequestUser } from '@lib/common/interfaces';
 
 export class BaseFilterDto<T extends BaseEntity = any> {
 	@IsOptional()
@@ -37,4 +38,7 @@ export class BaseFilterDto<T extends BaseEntity = any> {
 
 	@ApiHideProperty()
 	relations?: string[];
+
+	@ApiHideProperty()
+	user?: RequestUser;
 }

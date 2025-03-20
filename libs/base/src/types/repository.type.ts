@@ -152,3 +152,15 @@ export type ExistOptions<T extends BaseEntity> = {
 	where?: Where<T>;
 	select?: Select<T>;
 };
+
+export type IncrementOptions<T extends BaseEntity> = {
+	where: Where<T>;
+	column: keyof T;
+	value: number | string;
+};
+
+export type DecrementOptions<T extends BaseEntity> = {
+	where: Where<T>;
+	column: keyof T;
+	value: number | string;
+};

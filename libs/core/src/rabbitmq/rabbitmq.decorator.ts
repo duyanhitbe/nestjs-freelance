@@ -1,5 +1,6 @@
 import { ENUM_RABBITMQ_CLIENT } from '@lib/core/rabbitmq/rabbitmq.enum';
-import { Inject } from '@nestjs/common';
+import { applyDecorators, Controller, Inject } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 
 export function InjectClientRMQ(name: ENUM_RABBITMQ_CLIENT): ParameterDecorator {
 	return function (
@@ -10,4 +11,8 @@ export function InjectClientRMQ(name: ENUM_RABBITMQ_CLIENT): ParameterDecorator 
 	) {
 		Inject(name)(target, propertyKey, parameterIndex);
 	};
+}
+
+export function Consumer() {
+	return applyDecorators(Controller(), ApiExcludeController());
 }

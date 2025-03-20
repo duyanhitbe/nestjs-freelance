@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { writeFileSync } from 'fs';
 
 export function setupSwagger(app: INestApplication) {
 	const config = new DocumentBuilder()
@@ -33,4 +34,7 @@ export function setupSwagger(app: INestApplication) {
 			}
 		}
 	});
+	if (process.env.NODE_ENV === 'local') {
+		writeFileSync('swagger.json', JSON.stringify(documentFactory()));
+	}
 }

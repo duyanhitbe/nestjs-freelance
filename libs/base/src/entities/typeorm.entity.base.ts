@@ -21,7 +21,7 @@ export class BaseTypeormEntity extends TypeormBaseEntity implements BaseEntity {
 	updatedAt!: Date;
 
 	@DeleteDateColumn({ name: camelToSnake('deletedAt'), type: 'timestamptz', select: false })
-	deletedAt?: Date;
+	deletedAt!: Date;
 
 	@Column({
 		type: 'simple-enum',

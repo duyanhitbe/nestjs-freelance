@@ -10,6 +10,7 @@ import {
 	IsString,
 	IsUrl,
 	IsUUID,
+	Matches,
 	Max,
 	MaxLength,
 	Min,
@@ -53,6 +54,17 @@ export function I18nIsString(options?: I18nValidationOptions): PropertyDecorator
 		IsString({
 			...options,
 			message: i18nValidationMessage('validation.IS_STRING', {
+				property
+			})
+		})(target, propertyKey);
+	};
+}
+
+export function I18nIsVNPhoneNumber(options?: I18nValidationOptions): PropertyDecorator {
+	return function (target: any, propertyKey: string) {
+		const property = getProperty(target, propertyKey, options);
+		Matches(/^(\+84|0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-9])[0-9]{7}$/, {
+			message: i18nValidationMessage('validation.IS_VN_PHONE_NUMBER', {
 				property
 			})
 		})(target, propertyKey);

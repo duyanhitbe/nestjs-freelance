@@ -51,7 +51,7 @@ export class RedisServiceImp extends RedisService {
 		const setKey = this.getKey(options);
 		await this.redis.set(setKey, JSON.stringify(value), 'EX', ttl);
 		this.logger.log(`Cached data with key=${setKey} | ttl=${ttl}s`);
-		if (process.env.IS_DEBUG_REDIS === 'true') {
+		if (this.shouldDebug) {
 			this.logger.debug(value);
 		}
 	}
@@ -63,7 +63,7 @@ export class RedisServiceImp extends RedisService {
 		await this.del(options);
 		await this.redis.setnx(setKey, JSON.stringify(value));
 		this.logger.log(`Cached data with key=${setKey} | ttl=forever`);
-		if (process.env.IS_DEBUG_REDIS === 'true') {
+		if (this.shouldDebug) {
 			this.logger.debug(value);
 		}
 	}
@@ -79,7 +79,7 @@ export class RedisServiceImp extends RedisService {
 		}
 		const result = JSON.parse(value);
 		this.logger.log(`Found cached data with key: ${getKey}`);
-		if (process.env.IS_DEBUG_REDIS === 'true') {
+		if (this.shouldDebug) {
 			this.logger.debug(result);
 		}
 		return result;

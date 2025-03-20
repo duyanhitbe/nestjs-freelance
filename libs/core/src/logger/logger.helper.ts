@@ -14,15 +14,15 @@ export function loggingIncomingRequest(request: Request, logger: Logger) {
 	console.log();
 	logger.log(`[${method}] ${path} | ${ip}`, 'Incoming Request');
 	if (!isEmptyObject(query)) {
-		logger.log(`[query] ${JSON.stringify(query)}`, 'Incoming Request');
+		logger.log(`[Query] ${JSON.stringify(query)}`, 'Incoming Request');
 	}
 	if (!isEmptyObject(body)) {
-		logger.log(`[body] ${JSON.stringify(body)}`, 'Incoming Request');
+		logger.log(`[Body] ${JSON.stringify(body)}`, 'Incoming Request');
 	}
 	if (!isEmptyObject(params)) {
-		logger.log(`[params] ${JSON.stringify(params)}`, 'Incoming Request');
+		logger.log(`[Params] ${JSON.stringify(params)}`, 'Incoming Request');
 	}
 	if (authorization) {
-		logger.log(`[authorization] ${authorization}`, 'Incoming Request');
+		logger.log(`[Authorization] ${authorization}`, 'Incoming Request');
 	}
 }
