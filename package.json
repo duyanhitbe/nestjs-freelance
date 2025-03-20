@@ -21,8 +21,8 @@
     "repl": "npm run start -- --entryFile src/repl",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "typeorm:run": "npm run typeorm migration:run -- -d ./libs/core/src/typeorm/typeorm.config.ts",
-    "typeorm:generate": "npm run typeorm -- -d ./libs/core/src/typeorm/typeorm.config.ts migration:generate ./libs/core/src/typeorm/migrations/$npm_config_name",
-    "typeorm:create": "npm run typeorm -- migration:create ./libs/core/src/typeorm/migrations/$npm_config_name",
+    "typeorm:generate": "npm run typeorm -- -d ./libs/core/src/typeorm/typeorm.config.ts migration:generate ./database/migrations/$npm_config_name",
+    "typeorm:create": "npm run typeorm -- migration:create ./database/migrations/$npm_config_name",
     "typeorm:revert": "npm run typeorm -- -d ./libs/core/src/typeorm/typeorm.config.ts migration:revert"
   },
   "dependencies": {

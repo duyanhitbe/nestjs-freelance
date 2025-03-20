@@ -21,7 +21,7 @@ export const options: TypeOrmModuleOptions = {
 	migrationsTableName: 'migrations',
 	migrationsRun: configService.get('TYPEORM_MIGRATION_RUN') === 'true',
 	migrationsTransactionMode: 'each',
-	migrations: [__dirname + '/migrations/*.ts']
+	migrations: [__dirname + '../../../../../database/migrations/*.ts']
 };
 
 export default new DataSource({
