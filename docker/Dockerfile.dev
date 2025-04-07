@@ -1,0 +1,19 @@
+FROM node:22-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Install pnpm globally
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Copy files
+COPY . .
+
+# Install dependencies
+RUN pnpm install
+
+# Expose the application's port
+EXPOSE 3000
+
+# Run migrations before starting the app
+CMD ["sh", "-c", "pnpm typeorm:run && pnpm start:dev"]

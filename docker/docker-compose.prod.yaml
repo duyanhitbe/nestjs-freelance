@@ -1,0 +1,62 @@
+services:
+  app:
+    image: nestjs-freelance-be-prod
+    container_name: nestjs-freelance-be-prod
+    env_file: .env.prod
+    restart: always
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile.prod
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - rabbit
+      - redis
+    networks:
+      - app
+      - postgres
+      - redis
+      - rabbitmq
+
+  postgres:
+    image: postgres:17
+    container_name: nestjs-freelance-postgres-prod
+    env_file: .env.prod
+    restart: always
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - postgres
+
+  rabbit:
+    image: rabbitmq:4.1-rc-management
+    container_name: nestjs-freelance-rabbit-prod
+    env_file: .env.prod
+    restart: always
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+      - rabbitmq:/var/log/rabbitmq
+    networks:
+      - rabbitmq
+
+  redis:
+    image: redis:7
+    container_name: nestjs-freelance-redis-prod
+    env_file: .env.prod
+    restart: always
+    volumes:
+      - redis:/data
+    networks:
+      - redis
+
+networks:
+  app:
+  postgres:
+  redis:
+  rabbitmq:
+
+volumes:
+  postgres:
+  rabbitmq:
+  redis:

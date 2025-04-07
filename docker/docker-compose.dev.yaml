@@ -1,29 +1,31 @@
 services:
   app:
-    image: duyanhit/nestjs-freelance-be:latest
-    container_name: nestjs-freelance-be
-    env_file: .env
+    image: nestjs-freelance-be-dev
+    container_name: nestjs-freelance-be-dev
+    env_file: .env.dev
     restart: always
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: ./docker/Dockerfile.dev
+    ports:
+      - "3000:3000"
     depends_on:
       - postgres
       - rabbit
       - redis
     volumes:
-      - ./public:/app/public
+      - ..:/app
+      - /app/node_modules
     networks:
       - app
       - postgres
       - redis
       - rabbitmq
-      - ngrok
 
   postgres:
     image: postgres:17
-    container_name: nestjs-freelance-postgres
-    env_file: .env
+    container_name: nestjs-freelance-postgres-dev
+    env_file: .env.dev
     restart: always
     volumes:
       - postgres:/var/lib/postgresql/data
@@ -32,8 +34,8 @@ services:
 
   rabbit:
     image: rabbitmq:4.1-rc-management
-    container_name: nestjs-freelance-rabbit
-    env_file: .env
+    container_name: nestjs-freelance-rabbit-dev
+    env_file: .env.dev
     restart: always
     volumes:
       - rabbitmq:/var/lib/rabbitmq
@@ -43,30 +45,19 @@ services:
 
   redis:
     image: redis:7
-    container_name: nestjs-freelance-redis
-    env_file: .env
+    container_name: nestjs-freelance-redis-dev
+    env_file: .env.dev
     restart: always
     volumes:
       - redis:/data
     networks:
       - redis
 
-  ngrok:
-    image: ngrok/ngrok:latest
-    container_name: nestjs-freelance-ngrok
-    env_file: .env
-    command: http http://app:3000 --log=stdout
-    depends_on:
-      - app
-    networks:
-      - app
-
 networks:
   app:
   postgres:
   redis:
   rabbitmq:
-  ngrok:
 
 volumes:
   postgres:

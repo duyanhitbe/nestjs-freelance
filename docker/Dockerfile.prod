@@ -1,18 +1,23 @@
+
 # Stage 1: Build
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 # Set the working directory
 WORKDIR /app
 
 # Install pnpm globally
+RUN apk add --no-cache jq
 RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g @nestjs/cli@10.0.0
 
 # Copy package files
-COPY patches /app/patches
-COPY package.json pnpm-lock.yaml ./
+COPY package.json nest-cli.json ./
+
+# Clean patch package
+RUN jq 'del(.pnpm.patchedDependencies)' package.json > package.tmp.json && mv package.tmp.json package.json
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # Copy the rest of the application code
 COPY . .
@@ -21,7 +26,7 @@ COPY . .
 RUN pnpm run build
 
 # Stage 2: Production
-FROM node:20-alpine AS production
+FROM node:22-alpine AS production
 
 # Set the working directory
 WORKDIR /app
@@ -30,10 +35,10 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copy dependencies from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/i18n ./i18n
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/i18n /app/i18n
+COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/package.json /app/package.json
 
 RUN mkdir /app/public
 
