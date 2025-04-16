@@ -56,7 +56,7 @@ index 0000000000000000000000000000000000000000..58119ee1f28d060573ed29eddcb359fc
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/modules/dto/filter-__name__.dto.ts
 @@ -0,0 +1,3 @@
-+import { BaseFilterDto } from '@lib/base/dto';
++import { BaseFilterDto } from '@base/dto';
 +
 +export class Filter<%= classify(name) %>Dto extends BaseFilterDto {}
 diff --git a/dist/lib/resource/files/ts/modules/dto/update-__name__.dto.ts b/dist/lib/resource/files/ts/modules/dto/update-__name__.dto.ts
@@ -75,7 +75,7 @@ index 0000000000000000000000000000000000000000..2a88e31ab897546e31b4264197040986
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/modules/entities/__name__.entity.ts
 @@ -0,0 +1,3 @@
-+import { BaseEntity } from '@lib/base/entities';
++import { BaseEntity } from '@base/entities';
 +
 +export abstract class <%= classify(name) %>Entity extends BaseEntity {}
 diff --git a/dist/lib/resource/files/ts/modules/entities/__name__.typeorm.entity.ts b/dist/lib/resource/files/ts/modules/entities/__name__.typeorm.entity.ts
@@ -85,7 +85,7 @@ index 0000000000000000000000000000000000000000..428b899c8dd5dc33cb90ab5fa4a4b37e
 +++ b/dist/lib/resource/files/ts/modules/entities/__name__.typeorm.entity.ts
 @@ -0,0 +1,6 @@
 +import { <%= classify(name) %>Entity } from './<%= name %>.entity';
-+import { BaseTypeormEntity } from '@lib/base/entities';
++import { BaseTypeormEntity } from '@base/entities';
 +import { Entity } from 'typeorm';
 +
 +@Entity('<%= name %>s')
@@ -111,7 +111,7 @@ index 0000000000000000000000000000000000000000..4453ac409d76386b00d60c778e2a6f98
 --- /dev/null
 +++ b/dist/lib/resource/files/ts/modules/repositories/__name__.repository.ts
 @@ -0,0 +1,4 @@
-+import { BaseRepository } from '@lib/base/repositories';
++import { BaseRepository } from '@base/repositories';
 +import { <%= classify(name) %>Entity } from '../entities/<%= name %>.entity';
 +
 +export abstract class <%= classify(name) %>Repository extends BaseRepository<<%= classify(name) %>Entity> {}
@@ -122,8 +122,8 @@ index 0000000000000000000000000000000000000000..b641533b35c0466d344ad272c4e00fe9
 +++ b/dist/lib/resource/files/ts/modules/repositories/__name__.typeorm.repository.ts
 @@ -0,0 +1,9 @@
 +import { <%= classify(name) %>Repository } from './<%= name %>.repository';
-+import { BaseTypeormRepository } from '@lib/base/repositories';
-+import { Repository } from '@lib/core/typeorm';
++import { BaseTypeormRepository } from '@base/repositories';
++import { Repository } from '@core/typeorm';
 +import { <%= classify(name) %>TypeormEntity } from '../entities/<%= name %>.typeorm.entity';
 +
 +@Repository(<%= classify(name) %>TypeormEntity)
@@ -137,7 +137,7 @@ index 0000000000000000000000000000000000000000..e5929f32b4b4040a54a883dca693345f
 +++ b/dist/lib/resource/files/ts/transport/__name__.controller.ts
 @@ -0,0 +1,80 @@
 +import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-+import { Create<%= classify(name) %>Dto, Filter<%= classify(name) %>Dto, Update<%= classify(name) %>Dto, <%= classify(name) %>Entity } from '@lib/modules/<%= name %>';
++import { Create<%= classify(name) %>Dto, Filter<%= classify(name) %>Dto, Update<%= classify(name) %>Dto, <%= classify(name) %>Entity } from '@modules/<%= name %>';
 +import { Create<%= classify(name) %>UseCase } from './usecases/create-<%= name %>.usecase';
 +import { Update<%= classify(name) %>UseCase } from './usecases/update-<%= name %>.usecase';
 +import { Delete<%= classify(name) %>UseCase } from './usecases/delete-<%= name %>.usecase';
@@ -147,8 +147,8 @@ index 0000000000000000000000000000000000000000..e5929f32b4b4040a54a883dca693345f
 +	SwaggerCreatedResponse,
 +	SwaggerListResponse,
 +	SwaggerOkResponse
-+} from '@lib/common/decorators';
-+import { PaginationResponse } from '@lib/base/dto';
++} from '@common/decorators';
++import { PaginationResponse } from '@base/dto';
 +
 +@Controller('<%= name %>s')
 +export class <%= classify(name) %>Controller {
@@ -248,8 +248,8 @@ index 0000000000000000000000000000000000000000..a6b38880bc771e1be980741628cafd26
 +++ b/dist/lib/resource/files/ts/transport/usecases/create-__name__.usecase.ts
 @@ -0,0 +1,14 @@
 +import { Injectable } from '@nestjs/common';
-+import { Create<%= classify(name) %>Dto, <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@lib/modules/<%= name %>';
-+import { ExecuteHandler } from '@lib/common/abstracts';
++import { Create<%= classify(name) %>Dto, <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@modules/<%= name %>';
++import { ExecuteHandler } from '@common/abstracts';
 +
 +@Injectable()
 +export class Create<%= classify(name) %>UseCase extends ExecuteHandler<<%= classify(name) %>Entity> {
@@ -268,8 +268,8 @@ index 0000000000000000000000000000000000000000..189c030506ee45d16284d65154c27ec7
 +++ b/dist/lib/resource/files/ts/transport/usecases/delete-__name__.usecase.ts
 @@ -0,0 +1,14 @@
 +import { Injectable } from '@nestjs/common';
-+import { <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@lib/modules/<%= name %>';
-+import { ExecuteHandler } from '@lib/common/abstracts';
++import { <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@modules/<%= name %>';
++import { ExecuteHandler } from '@common/abstracts';
 +
 +@Injectable()
 +export class Delete<%= classify(name) %>UseCase extends ExecuteHandler<<%= classify(name) %>Entity> {
@@ -288,8 +288,8 @@ index 0000000000000000000000000000000000000000..013189108403af28c754eed712d03a6b
 +++ b/dist/lib/resource/files/ts/transport/usecases/detail-__name__.usecase.ts
 @@ -0,0 +1,14 @@
 +import { Injectable } from '@nestjs/common';
-+import { <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@lib/modules/<%= name %>';
-+import { QueryHandler } from '@lib/common/abstracts';
++import { <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@modules/<%= name %>';
++import { QueryHandler } from '@common/abstracts';
 +
 +@Injectable()
 +export class Detail<%= classify(name) %>UseCase extends QueryHandler<<%= classify(name) %>Entity> {
@@ -308,9 +308,9 @@ index 0000000000000000000000000000000000000000..28d33c25d4f24bf166eaf9f2008c21e6
 +++ b/dist/lib/resource/files/ts/transport/usecases/find-__name__.usecase.ts
 @@ -0,0 +1,15 @@
 +import { Injectable } from '@nestjs/common';
-+import { Filter<%= classify(name) %>Dto, <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@lib/modules/<%= name %>';
-+import { PaginationResponse } from '@lib/base/dto';
-+import { QueryHandler } from '@lib/common/abstracts';
++import { Filter<%= classify(name) %>Dto, <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@modules/<%= name %>';
++import { PaginationResponse } from '@base/dto';
++import { QueryHandler } from '@common/abstracts';
 +
 +@Injectable()
 +export class Find<%= classify(name) %>UseCase extends QueryHandler<PaginationResponse<<%= classify(name) %>Entity>> {
@@ -329,8 +329,8 @@ index 0000000000000000000000000000000000000000..af7be2594d932247e02908de839e2326
 +++ b/dist/lib/resource/files/ts/transport/usecases/update-__name__.usecase.ts
 @@ -0,0 +1,14 @@
 +import { Injectable } from '@nestjs/common';
-+import { Update<%= classify(name) %>Dto, <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@lib/modules/<%= name %>';
-+import { ExecuteHandler } from '@lib/common/abstracts';
++import { Update<%= classify(name) %>Dto, <%= classify(name) %>Entity, <%= classify(name) %>Repository } from '@modules/<%= name %>';
++import { ExecuteHandler } from '@common/abstracts';
 +
 +@Injectable()
 +export class Update<%= classify(name) %>UseCase extends ExecuteHandler<<%= classify(name) %>Entity> {
