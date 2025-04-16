@@ -1,4 +1,4 @@
-import { UserRepository } from './user.repository.abstract';
+import { UserRepository } from './user.repository';
 import { BaseTypeormRepository } from '@lib/base/repositories';
 import { Repository } from '@lib/core/typeorm';
 import { UserTypeormEntity } from '../entities/user.typeorm.entity';

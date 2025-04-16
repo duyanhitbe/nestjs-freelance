@@ -1,4 +1,4 @@
-import { HashService } from '@lib/core/hash/hash.service.abstract';
+import { HashService } from '@lib/core/hash/hash.service';
 import * as argon2 from 'argon2';
 
 export class Argon2Service extends HashService {

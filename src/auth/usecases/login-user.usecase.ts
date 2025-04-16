@@ -4,7 +4,7 @@ import { UserEntity, UserRepository } from '@lib/modules/user';
 import { ENUM_TOKEN_ROLE, JwtService } from '@lib/core/jwt';
 import { I18nExceptionService } from '@lib/core/i18n';
 import { HashService } from '@lib/core/hash';
-import { ExecuteHandler } from '@lib/common/abstracts';
+import { ExecuteHandler } from '@lib/base/handlers';
 
 @Injectable()
 export class LoginUserUseCase extends ExecuteHandler<LoginUserEntity> {

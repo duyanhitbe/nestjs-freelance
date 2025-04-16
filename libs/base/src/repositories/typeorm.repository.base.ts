@@ -6,7 +6,7 @@ import { Brackets, In, Repository, SelectQueryBuilder } from 'typeorm';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 import { PaginationResponse } from '../dto';
 import { BaseTypeormEntity } from '../entities';
-import { BaseRepository } from '../repositories/repository.base.abstract';
+import { BaseRepository } from './repository.base';
 import {
 	CreateOptions,
 	DecrementOptions,

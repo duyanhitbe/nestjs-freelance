@@ -1,2 +1,2 @@
-export * from './entity.base.abstract';
+export * from './entity.base';
 export * from './typeorm.entity.base';

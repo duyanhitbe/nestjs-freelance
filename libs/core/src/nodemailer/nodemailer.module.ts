@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { NodemailerService } from './nodemailer.abstract';
-import { NodemailerServiceImp } from './nodemailer.service';
+import { NodemailerService } from './nodemailer.service';
+import { NodemailerServiceImp } from './nodemailer-imp.service';
 import { NODEMAILER_TRANSPORT } from './nodemailer.constant';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';

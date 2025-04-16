@@ -1,7 +1,7 @@
 import { Inject, Logger } from '@nestjs/common';
 import { REDIS_METADATA } from './redis.constant';
 import Redis from 'ioredis';
-import { RedisServiceImp } from '@lib/core/redis/redis.service';
+import { RedisServiceImp } from '@lib/core/redis/redis-imp.service';
 
 export function InjectRedis(): ParameterDecorator {
 	return function (

@@ -5,7 +5,7 @@ import {
 	NotFoundException,
 	UnauthorizedException
 } from '@nestjs/common';
-import { I18nExceptionService, TranslateService } from '@lib/core/i18n/i18n.abstract';
+import { I18nExceptionService, TranslateService } from '@lib/core/i18n/i18n.service';
 
 @Injectable()
 export class I18nExceptionServiceImp extends I18nExceptionService {

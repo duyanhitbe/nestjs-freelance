@@ -116,7 +116,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@nestjs/schematics@10.2.3": "patches/@nestjs__schematics@10.2.3.patch"
+      "@nestjs/schematics": "patches/@nestjs__schematics.patch"
     }
   },
   "engines": {

@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
-import { ExcelService } from './excel.abstract';
-import { ExcelServiceImp } from './excel.service';
+import { ExcelService } from './excel.service';
+import { ExcelServiceImp } from './excel-imp.service';
 
 @Global()
 @Module({

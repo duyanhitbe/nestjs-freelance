@@ -1,4 +1,4 @@
-import { BaseEntity } from './entity.base.abstract';
+import { BaseEntity } from './entity.base';
 import {
 	BaseEntity as TypeormBaseEntity,
 	Column,

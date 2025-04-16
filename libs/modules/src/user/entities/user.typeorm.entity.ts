@@ -1,4 +1,4 @@
-import { UserEntity } from './user.entity.abstract';
+import { UserEntity } from './user.entity';
 import { BaseTypeormEntity } from '@lib/base/entities';
 import { BeforeInsert, Entity } from 'typeorm';
 import { Exclude } from 'class-transformer';

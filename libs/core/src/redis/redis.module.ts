@@ -3,8 +3,8 @@ import { REDIS_METADATA } from './redis.constant';
 import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
 import { Env } from '@lib/common/interfaces';
-import { RedisService } from '@lib/core/redis/redis.service.abstract';
-import { RedisServiceImp } from '@lib/core/redis/redis.service';
+import { RedisService } from '@lib/core/redis/redis.service';
+import { RedisServiceImp } from '@lib/core/redis/redis-imp.service';
 
 @Module({})
 export class RedisModule {

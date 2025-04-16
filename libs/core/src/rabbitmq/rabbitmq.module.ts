@@ -3,7 +3,7 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { Env } from '@lib/common/interfaces';
 import { RabbitMQModuleOptions } from '@lib/core/rabbitmq/rabbitmq.type';
-import { RabbitmqServiceImp } from '@lib/core/rabbitmq/rabbitmq.service';
+import { RabbitmqServiceImp } from '@lib/core/rabbitmq/rabbitmq-imp.service';
 
 @Module({})
 export class RabbitMQModule {

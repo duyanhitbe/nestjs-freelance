@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { JwtModule as NestJwtModule } from '@nestjs/jwt';
-import { JwtServiceImp } from './jwt.service';
-import { JwtService } from './jwt.abstract';
+import { JwtServiceImp } from './jwt-imp.service';
+import { JwtService } from './jwt.service';
 
 @Module({})
 export class JwtModule {

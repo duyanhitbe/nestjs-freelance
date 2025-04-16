@@ -1,2 +1,2 @@
 export * from './argon2.service';
-export * from './hash.service.abstract';
+export * from './hash.service';

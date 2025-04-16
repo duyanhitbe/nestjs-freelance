@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto, UserEntity, UserRepository } from '@lib/modules/user';
 import { I18nExceptionService, TranslateService } from '@lib/core/i18n';
-import { ExecuteHandler } from '@lib/common/abstracts';
+import { ExecuteHandler } from '@lib/base/handlers';
 
 @Injectable()
 export class CreateUserUseCase extends ExecuteHandler<UserEntity> {

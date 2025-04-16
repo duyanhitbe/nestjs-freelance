@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { I18nService } from 'nestjs-i18n';
-import { TranslateService } from '@lib/core/i18n/i18n.abstract';
+import { TranslateService } from '@lib/core/i18n/i18n.service';
 
 @Injectable()
 export class TranslateServiceImp extends TranslateService {

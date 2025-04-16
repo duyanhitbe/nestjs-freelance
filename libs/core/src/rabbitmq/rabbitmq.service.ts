@@ -1,25 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { RabbitmqService } from './rabbitmq.service.abstract';
+import { Injectable } from '@nestjs/common';
+import { Observable } from 'rxjs';
 import { RabbitMQPattern } from './rabbitmq.type';
 
 @Injectable()
-export class RabbitmqServiceImp extends RabbitmqService {
-	private readonly logger = new Logger(this.constructor.name);
+export abstract class RabbitmqService {
+	abstract emit(pattern: RabbitMQPattern, data: any): Observable<any>;
 
-	constructor(private readonly clientProxy: ClientProxy) {
-		super();
-	}
-
-	emit(pattern: RabbitMQPattern, data: any) {
-		this.logger.log(`Publish message ${JSON.stringify(pattern)}`);
-		this.logger.debug(data);
-		return this.clientProxy.emit(pattern, data);
-	}
-
-	send(pattern: RabbitMQPattern, data: any) {
-		this.logger.log(`Sending message ${JSON.stringify(pattern)}`);
-		this.logger.debug(data);
-		return this.clientProxy.send(pattern, data);
-	}
+	abstract send(pattern: RabbitMQPattern, data: any): Observable<any>;
 }

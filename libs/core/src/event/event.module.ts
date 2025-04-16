@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { EventEmitterServiceImp } from './event-emitter.service';
-import { EventEmitterService } from './event-emitter.service.abstract';
+import { EventEmitterServiceImp } from './event-emitter-imp.service';
+import { EventEmitterService } from './event-emitter.service';
 
 @Module({})
 export class EventModule {

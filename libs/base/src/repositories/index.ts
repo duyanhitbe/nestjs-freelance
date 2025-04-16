@@ -1,2 +1,2 @@
-export * from './repository.base.abstract';
+export * from './repository.base';
 export * from './typeorm.repository.base';
