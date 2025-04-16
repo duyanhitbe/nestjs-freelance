@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@nestjs/schematics':
-    hash: npp4wayuwiom7jjrok34cnv6fq
+    hash: j4v2om74gsxj6zv7pitkkxbabq
     path: patches/@nestjs__schematics.patch
 
 importers:
@@ -121,7 +121,7 @@ importers:
         version: 10.4.7
       '@nestjs/schematics':
         specifier: ^10.0.0
-        version: 10.2.3(patch_hash=npp4wayuwiom7jjrok34cnv6fq)(chokidar@3.6.0)(typescript@5.6.3)
+        version: 10.2.3(patch_hash=j4v2om74gsxj6zv7pitkkxbabq)(chokidar@3.6.0)(typescript@5.6.3)
       '@nestjs/testing':
         specifier: ^10.0.0
         version: 10.4.7(@nestjs/common@10.4.7(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.7)(@nestjs/microservices@10.4.13)(@nestjs/platform-express@10.4.7)
@@ -4034,7 +4034,7 @@ snapshots:
       '@angular-devkit/core': 17.3.11(chokidar@3.6.0)
       '@angular-devkit/schematics': 17.3.11(chokidar@3.6.0)
       '@angular-devkit/schematics-cli': 17.3.11(chokidar@3.6.0)
-      '@nestjs/schematics': 10.2.3(patch_hash=npp4wayuwiom7jjrok34cnv6fq)(chokidar@3.6.0)(typescript@5.6.3)
+      '@nestjs/schematics': 10.2.3(patch_hash=j4v2om74gsxj6zv7pitkkxbabq)(chokidar@3.6.0)(typescript@5.6.3)
       chalk: 4.1.2
       chokidar: 3.6.0
       cli-table3: 0.6.5
@@ -4136,7 +4136,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@nestjs/schematics@10.2.3(patch_hash=npp4wayuwiom7jjrok34cnv6fq)(chokidar@3.6.0)(typescript@5.6.3)':
+  '@nestjs/schematics@10.2.3(patch_hash=j4v2om74gsxj6zv7pitkkxbabq)(chokidar@3.6.0)(typescript@5.6.3)':
     dependencies:
       '@angular-devkit/core': 17.3.11(chokidar@3.6.0)
       '@angular-devkit/schematics': 17.3.11(chokidar@3.6.0)
