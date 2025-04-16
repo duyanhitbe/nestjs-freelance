@@ -1,7 +1,7 @@
+import { IListResponse, IResponse } from '@common/interfaces';
 import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
-import { map, Observable } from 'rxjs';
 import { Request, Response } from 'express';
-import { IListResponse, IResponse } from '@lib/common/interfaces';
+import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {

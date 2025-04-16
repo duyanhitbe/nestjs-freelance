@@ -1,6 +1,6 @@
+import { Env } from '@common/interfaces';
 import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Env } from '@lib/common/interfaces';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { ENUM_QUEUE } from './rabbitmq.enum';
 

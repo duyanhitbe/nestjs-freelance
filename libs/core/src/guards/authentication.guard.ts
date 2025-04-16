@@ -1,8 +1,8 @@
-import { RequestUser } from '@lib/common/interfaces';
-import { I18nExceptionService } from '@lib/core/i18n';
-import { ENUM_TOKEN_ROLE, JwtService } from '@lib/core/jwt';
-import { REDIS_PREFIX_KEY, RedisService } from '@lib/core/redis';
-import { UserEntity, UserRepository } from '@lib/modules/user';
+import { RequestUser } from '@common/interfaces';
+import { I18nExceptionService } from '@core/i18n';
+import { ENUM_TOKEN_ROLE, JwtService } from '@core/jwt';
+import { REDIS_PREFIX_KEY, RedisService } from '@core/redis';
+import { UserEntity, UserRepository } from '@modules/user';
 import {
 	CanActivate,
 	ExecutionContext,

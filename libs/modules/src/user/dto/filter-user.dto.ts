@@ -1,3 +1,3 @@
-import { BaseFilterDto } from '@lib/base/dto';
+import { BaseFilterDto } from '@base/dto';
 
 export class FilterUserDto extends BaseFilterDto {}

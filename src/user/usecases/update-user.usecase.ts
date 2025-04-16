@@ -1,6 +1,6 @@
+import { ExecuteHandler } from '@base/handlers';
+import { UpdateUserDto, UserEntity, UserRepository } from '@modules/user';
 import { Injectable } from '@nestjs/common';
-import { UpdateUserDto, UserEntity, UserRepository } from '@lib/modules/user';
-import { ExecuteHandler } from '@lib/base/handlers';
 
 @Injectable()
 export class UpdateUserUseCase extends ExecuteHandler<UserEntity> {

@@ -1,6 +1,6 @@
+import { Argon2Service } from '@core/hash/argon2.service';
+import { HashService } from '@core/hash/hash.service';
 import { DynamicModule, Module } from '@nestjs/common';
-import { HashService } from '@lib/core/hash/hash.service';
-import { Argon2Service } from '@lib/core/hash/argon2.service';
 
 @Module({})
 export class HashModule {

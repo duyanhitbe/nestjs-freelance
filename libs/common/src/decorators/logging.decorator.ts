@@ -1,4 +1,4 @@
-import { LoggerService } from '@lib/core/logger';
+import { LoggerService } from '@core/logger';
 
 export interface LoggingOptions {
 	/** Should debug return value */

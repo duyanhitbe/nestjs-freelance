@@ -1,9 +1,9 @@
-import { UserEntity } from './user.entity';
-import { BaseTypeormEntity } from '@lib/base/entities';
-import { BeforeInsert, Entity } from 'typeorm';
+import { BaseTypeormEntity } from '@base/entities';
+import { TypeormColumn, TypeormUnique } from '@common/decorators';
+import { Argon2Service } from '@core/hash';
 import { Exclude } from 'class-transformer';
-import { TypeormColumn, TypeormUnique } from '@lib/common/decorators';
-import { Argon2Service } from '@lib/core/hash';
+import { BeforeInsert, Entity } from 'typeorm';
+import { UserEntity } from './user.entity';
 
 @Entity('users')
 export class UserTypeormEntity extends BaseTypeormEntity implements UserEntity {

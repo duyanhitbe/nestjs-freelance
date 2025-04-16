@@ -1,4 +1,4 @@
-import { BaseFilterDto, PaginationMeta } from '@lib/base/dto';
+import { BaseFilterDto, PaginationMeta } from '@base/dto';
 
 type PageLimitOffset = {
 	limit: number;

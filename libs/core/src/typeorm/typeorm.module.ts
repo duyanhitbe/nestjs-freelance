@@ -1,11 +1,11 @@
+import { I18nExceptionService } from '@core/i18n';
+import { TypeOrmLogger } from '@core/logger';
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
-import { TypeormForFeaturesOptions } from './typeorm.interface';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { REPOSITORY_ENTITY } from './typeorm.decorator';
-import { I18nExceptionService } from '@lib/core/i18n';
-import { TypeOrmLogger } from '@lib/core/logger';
+import { TypeormForFeaturesOptions } from './typeorm.interface';
 
 @Global()
 @Module({})

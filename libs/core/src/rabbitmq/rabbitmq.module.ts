@@ -1,9 +1,9 @@
+import { Env } from '@common/interfaces';
+import { RabbitmqServiceImp } from '@core/rabbitmq/rabbitmq-imp.service';
+import { RabbitMQModuleOptions } from '@core/rabbitmq/rabbitmq.type';
 import { DynamicModule, Module } from '@nestjs/common';
-import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
-import { Env } from '@lib/common/interfaces';
-import { RabbitMQModuleOptions } from '@lib/core/rabbitmq/rabbitmq.type';
-import { RabbitmqServiceImp } from '@lib/core/rabbitmq/rabbitmq-imp.service';
+import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 @Module({})
 export class RabbitMQModule {

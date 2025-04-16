@@ -1,4 +1,4 @@
-import { PaginationMeta } from '@lib/base/dto';
+import { PaginationMeta } from '@base/dto';
 
 export interface IResponse {
 	statusCode: number;

@@ -1,7 +1,7 @@
+import { PaginationMeta } from '@base/dto/pagination.dto';
+import { IListResponse, IResponse } from '@common/interfaces';
 import { Type } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { IListResponse, IResponse } from '@lib/common/interfaces';
-import { PaginationMeta } from '@lib/base/dto/pagination.dto';
 import { ApiPropertyOptions } from '@nestjs/swagger/dist/decorators/api-property.decorator';
 
 export function SwaggerResponseType<T>(type: Type<T>, status = 200, isArray?: boolean) {

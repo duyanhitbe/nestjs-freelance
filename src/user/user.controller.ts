@@ -1,17 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { CreateUserDto, FilterUserDto, UpdateUserDto, UserEntity } from '@lib/modules/user';
-import { CreateUserUseCase } from './usecases/create-user.usecase';
-import { UpdateUserUseCase } from './usecases/update-user.usecase';
-import { DeleteUserUseCase } from './usecases/delete-user.usecase';
-import { FindUserUseCase } from './usecases/find-user.usecase';
-import { DetailUserUseCase } from './usecases/detail-user.usecase';
+import { PaginationResponse } from '@base/dto';
 import {
 	SwaggerCreatedResponse,
 	SwaggerListResponse,
 	SwaggerOkResponse,
 	UseAuth
-} from '@lib/common/decorators';
-import { PaginationResponse } from '@lib/base/dto';
+} from '@common/decorators';
+import { CreateUserDto, FilterUserDto, UpdateUserDto, UserEntity } from '@modules/user';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { CreateUserUseCase } from './usecases/create-user.usecase';
+import { DeleteUserUseCase } from './usecases/delete-user.usecase';
+import { DetailUserUseCase } from './usecases/detail-user.usecase';
+import { FindUserUseCase } from './usecases/find-user.usecase';
+import { UpdateUserUseCase } from './usecases/update-user.usecase';
 
 @Controller('users')
 @UseAuth()

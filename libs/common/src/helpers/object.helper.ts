@@ -1,4 +1,4 @@
-import { snakeToCamel } from '@lib/common/helpers/string.helper';
+import { snakeToCamel } from '@common/helpers/string.helper';
 
 export function isEmptyObject(obj: any) {
 	return Object.keys(obj).length === 0;

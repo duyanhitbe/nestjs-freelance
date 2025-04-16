@@ -1,4 +1,4 @@
-import { ENUM_TOKEN_ROLE } from '@lib/core/jwt';
+import { ENUM_TOKEN_ROLE } from '@core/jwt';
 
 export type RequestUser = {
 	id: string;

@@ -1,5 +1,5 @@
+import { ENUM_STATUS } from '@base/enums/status.enum';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
-import { ENUM_STATUS } from '@lib/base/enums/status.enum';
 
 export abstract class BaseEntity {
 	@ApiProperty()

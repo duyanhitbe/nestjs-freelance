@@ -1,4 +1,4 @@
-import { SwaggerProperty } from '@lib/common/decorators';
+import { SwaggerProperty } from '@common/decorators';
 
 export abstract class LoginUserEntity {
 	@SwaggerProperty()

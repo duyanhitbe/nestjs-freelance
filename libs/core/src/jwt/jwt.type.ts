@@ -1,4 +1,4 @@
-import { ENUM_TOKEN_ROLE } from '@lib/core/jwt/jwt.enum';
+import { ENUM_TOKEN_ROLE } from '@core/jwt/jwt.enum';
 
 export type JwtPayload = {
 	sub: string;

@@ -1,7 +1,7 @@
-import { UserRepository } from './user.repository';
-import { BaseTypeormRepository } from '@lib/base/repositories';
-import { Repository } from '@lib/core/typeorm';
+import { BaseTypeormRepository } from '@base/repositories';
+import { Repository } from '@core/typeorm';
 import { UserTypeormEntity } from '../entities/user.typeorm.entity';
+import { UserRepository } from './user.repository';
 
 @Repository(UserTypeormEntity)
 export class UserTypeormRepository

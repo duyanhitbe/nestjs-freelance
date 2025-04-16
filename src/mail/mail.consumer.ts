@@ -1,9 +1,9 @@
+import { Logging } from '@common/decorators';
+import { NodemailerService } from '@core/nodemailer';
+import { RABBITMQ_PATTERNS } from '@core/rabbitmq';
+import { SendMailEventPayload } from '@modules/mail';
 import { Controller } from '@nestjs/common';
 import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices';
-import { RABBITMQ_PATTERNS } from '@lib/core/rabbitmq';
-import { Logging } from '@lib/common/decorators';
-import { NodemailerService } from '@lib/core/nodemailer';
-import { SendMailEventPayload } from '@lib/modules/mail';
 
 @Controller()
 @Logging()

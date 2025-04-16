@@ -1,5 +1,5 @@
+import { EventEmitterService } from '@core/event/event-emitter.service';
 import { Injectable, Logger } from '@nestjs/common';
-import { EventEmitterService } from '@lib/core/event/event-emitter.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()

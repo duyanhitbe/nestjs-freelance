@@ -1,6 +1,6 @@
-import { isEmptyObject } from '@lib/common/helpers';
-import { Request } from 'express';
+import { isEmptyObject } from '@common/helpers';
 import { Logger } from '@nestjs/common';
+import { Request } from 'express';
 
 export function loggingIncomingRequest(request: Request, logger: Logger) {
 	const path = request.path;

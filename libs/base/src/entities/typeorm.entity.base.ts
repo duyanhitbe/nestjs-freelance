@@ -1,14 +1,14 @@
-import { BaseEntity } from './entity.base';
+import { ENUM_STATUS } from '@base/enums/status.enum';
+import { camelToSnake } from '@common/helpers';
 import {
-	BaseEntity as TypeormBaseEntity,
 	Column,
 	CreateDateColumn,
 	DeleteDateColumn,
 	PrimaryGeneratedColumn,
+	BaseEntity as TypeormBaseEntity,
 	UpdateDateColumn
 } from 'typeorm';
-import { camelToSnake } from '@lib/common/helpers';
-import { ENUM_STATUS } from '@lib/base/enums/status.enum';
+import { BaseEntity } from './entity.base';
 
 export class BaseTypeormEntity extends TypeormBaseEntity implements BaseEntity {
 	@PrimaryGeneratedColumn('uuid')

@@ -1,12 +1,12 @@
-import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
 import {
 	AuthenticationGuard,
 	AuthorizationGuard,
 	PUBLIC_METADATA_KEY,
 	TOKEN_ROLE_METADATA_KEY
-} from '@lib/core/guards';
-import { ENUM_TOKEN_ROLE } from '@lib/core/jwt';
+} from '@core/guards';
+import { ENUM_TOKEN_ROLE } from '@core/jwt';
+import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 export type UseAuthOptions = {
 	isPublic?: boolean;

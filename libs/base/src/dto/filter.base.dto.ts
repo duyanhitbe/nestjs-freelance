@@ -1,12 +1,12 @@
-import { Property } from '@lib/common/decorators/property.decorator';
-import { SwaggerProperty } from '@lib/common/decorators/swagger.decorator';
-import { IsOptional } from 'class-validator';
+import { BaseEntity } from '@base/entities';
+import { Where } from '@base/types';
+import { I18nIsEnum } from '@common/decorators/i18n.decorator';
+import { Property } from '@common/decorators/property.decorator';
+import { SwaggerProperty } from '@common/decorators/swagger.decorator';
+import { RequestUser } from '@common/interfaces';
 import { ApiHideProperty } from '@nestjs/swagger';
-import { Where } from '@lib/base/types';
-import { BaseEntity } from '@lib/base/entities';
-import { I18nIsEnum } from '@lib/common/decorators/i18n.decorator';
+import { IsOptional } from 'class-validator';
 import { ENUM_STATUS } from '../enums/status.enum';
-import { RequestUser } from '@lib/common/interfaces';
 
 export class BaseFilterDto<T extends BaseEntity = any> {
 	@IsOptional()

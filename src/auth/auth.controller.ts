@@ -1,12 +1,12 @@
+import { SwaggerOkResponse, UseAuth, User } from '@common/decorators';
+import { RequestUser } from '@common/interfaces';
+import { ENUM_TOKEN_ROLE } from '@core/jwt';
+import { LoginUserDto, LoginUserEntity } from '@modules/auth';
+import { UserEntity } from '@modules/user';
 import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
-import { SwaggerOkResponse, UseAuth, User } from '@lib/common/decorators';
-import { LoginUserDto, LoginUserEntity } from '@lib/modules/auth';
-import { LoginUserUseCase } from './usecases/login-user.usecase';
 import { Request, Response } from 'express';
-import { ENUM_TOKEN_ROLE } from '@lib/core/jwt';
-import { RequestUser } from '@lib/common/interfaces';
-import { UserEntity } from '@lib/modules/user';
 import { DetailUserUseCase } from '../user/usecases/detail-user.usecase';
+import { LoginUserUseCase } from './usecases/login-user.usecase';
 
 @Controller('auth')
 export class AuthController {

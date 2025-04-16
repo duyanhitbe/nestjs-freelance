@@ -1,5 +1,5 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
-import {UserTypeormEntity} from "@lib/modules/user";
+import { UserTypeormEntity } from '@modules/user';
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 //prettier-ignore
 export class CreateUser1733021046881 implements MigrationInterface {

@@ -1,8 +1,8 @@
+import { removeBracket, snakeToCamel } from '@common/helpers';
+import { TranslateService } from '@core/i18n';
 import { ArgumentsHost, Catch, ExceptionFilter, Logger } from '@nestjs/common';
 import { Response } from 'express';
 import { QueryFailedError } from 'typeorm';
-import { removeBracket, snakeToCamel } from '@lib/common/helpers';
-import { TranslateService } from '@lib/core/i18n';
 
 @Catch(QueryFailedError)
 export class TypeormFilter implements ExceptionFilter {

@@ -20,19 +20,16 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@lib/common/*": [
+      "@common/*": [
         "libs/common/src/*"
       ],
-      "@lib/core/*": [
+      "@core/*": [
         "libs/core/src/*"
       ],
-      "@lib/base/*": [
+      "@base/*": [
         "libs/base/src/*"
       ],
-      "@lib/modules": [
-        "libs/modules/src"
-      ],
-      "@lib/modules/*": [
+      "@modules/*": [
         "libs/modules/src/*"
       ]
     }

@@ -1,4 +1,4 @@
-import { ENUM_RABBITMQ_CLIENT } from '@lib/core/rabbitmq/rabbitmq.enum';
+import { ENUM_RABBITMQ_CLIENT } from '@core/rabbitmq/rabbitmq.enum';
 import { applyDecorators, Controller, Inject } from '@nestjs/common';
 import { ApiExcludeController } from '@nestjs/swagger';
 

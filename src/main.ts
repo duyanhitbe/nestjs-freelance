@@ -1,11 +1,11 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { setupSwagger } from '@lib/common/swagger';
+import { Env } from '@common/interfaces';
+import { setupSwagger } from '@common/swagger';
+import { LoggerService } from '@core/logger';
 import { Logger, VersioningType } from '@nestjs/common';
-import { I18nValidationPipe } from 'nestjs-i18n';
 import { ConfigService } from '@nestjs/config';
-import { Env } from '@lib/common/interfaces';
-import { LoggerService } from '@lib/core/logger';
+import { NestFactory } from '@nestjs/core';
+import { I18nValidationPipe } from 'nestjs-i18n';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, {

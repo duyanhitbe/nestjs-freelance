@@ -1,27 +1,27 @@
+import { Env } from '@common/interfaces';
+import { HttpFilter, TypeormFilter } from '@core/filters';
+import { HashModule } from '@core/hash/hash.module';
+import { I18nModule } from '@core/i18n/i18n.module';
+import { ResponseInterceptor } from '@core/interceptors';
+import { ACCESS_TOKEN_EXPIRES } from '@core/jwt';
+import { JwtModule } from '@core/jwt/jwt.module';
+import { LoggerMiddleware } from '@core/middlewares';
+import { NodemailerModule } from '@core/nodemailer/nodemailer.module';
+import { InjectRedis } from '@core/redis';
+import { RedisModule } from '@core/redis/redis.module';
+import { TypeormModule } from '@core/typeorm/typeorm.module';
 import { ClassSerializerInterceptor, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { UserModule } from './user/user.module';
-import { TypeormModule } from '@lib/core/typeorm/typeorm.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { ResponseInterceptor } from '@lib/core/interceptors';
-import { I18nModule } from '@lib/core/i18n/i18n.module';
-import { HttpFilter, TypeormFilter } from '@lib/core/filters';
-import { JwtModule } from '@lib/core/jwt/jwt.module';
-import { AuthModule } from './auth/auth.module';
-import { HashModule } from '@lib/core/hash/hash.module';
-import { AppRepositoryModule } from './app.repository.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
-import { RedisModule } from '@lib/core/redis/redis.module';
-import { InjectRedis } from '@lib/core/redis';
-import Redis from 'ioredis';
-import { Env } from '@lib/common/interfaces';
-import * as session from 'express-session';
-import { LoggerMiddleware } from '@lib/core/middlewares';
-import { ACCESS_TOKEN_EXPIRES } from '@lib/core/jwt';
 import { RedisStore } from 'connect-redis';
-import { NodemailerModule } from '@lib/core/nodemailer/nodemailer.module';
+import * as session from 'express-session';
+import Redis from 'ioredis';
+import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppRepositoryModule } from './app.repository.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
 	imports: [

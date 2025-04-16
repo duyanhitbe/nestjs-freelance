@@ -1,6 +1,6 @@
+import { QueryHandler } from '@base/handlers';
+import { UserEntity, UserRepository } from '@modules/user';
 import { Injectable } from '@nestjs/common';
-import { UserEntity, UserRepository } from '@lib/modules/user';
-import { QueryHandler } from '@lib/base/handlers';
 
 @Injectable()
 export class DetailUserUseCase extends QueryHandler<UserEntity> {

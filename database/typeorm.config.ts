@@ -1,8 +1,8 @@
-import { config } from 'dotenv';
-import { DataSource } from 'typeorm';
-import { TypeOrmLogger } from '@lib/core/logger';
+import { TypeOrmLogger } from '@core/logger';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm/dist/interfaces/typeorm-options.interface';
+import { config } from 'dotenv';
 import * as path from 'path';
+import { DataSource } from 'typeorm';
 
 config();
 

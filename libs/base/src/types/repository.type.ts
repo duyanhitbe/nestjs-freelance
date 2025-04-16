@@ -1,5 +1,5 @@
+import { ENUM_STATUS } from '@base/enums/status.enum';
 import { BaseEntity } from '../entities';
-import { ENUM_STATUS } from '@lib/base/enums/status.enum';
 
 export type Where<T extends BaseEntity> = {
 	[P in keyof T]?: any;

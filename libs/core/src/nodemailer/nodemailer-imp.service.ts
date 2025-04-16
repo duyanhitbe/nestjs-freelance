@@ -1,11 +1,11 @@
+import { SendGmailOptions } from '@core/nodemailer/nodemailer.interface';
 import { Injectable, Logger } from '@nestjs/common';
-import { NodemailerService } from './nodemailer.service';
-import { InjectNodemailer } from './nodemailer.decorator';
-import { SendMailOptions, Transporter } from 'nodemailer';
-import { join } from 'path';
 import { readFileSync } from 'fs';
 import * as handlebars from 'handlebars';
-import { SendGmailOptions } from '@lib/core/nodemailer/nodemailer.interface';
+import { SendMailOptions, Transporter } from 'nodemailer';
+import { join } from 'path';
+import { InjectNodemailer } from './nodemailer.decorator';
+import { NodemailerService } from './nodemailer.service';
 
 @Injectable()
 export class NodemailerServiceImp extends NodemailerService {

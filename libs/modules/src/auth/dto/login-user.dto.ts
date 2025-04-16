@@ -1,4 +1,4 @@
-import { I18nIsNotEmpty, I18nIsString, Property, SwaggerProperty } from '@lib/common/decorators';
+import { I18nIsNotEmpty, I18nIsString, Property, SwaggerProperty } from '@common/decorators';
 
 export class LoginUserDto {
 	@SwaggerProperty()

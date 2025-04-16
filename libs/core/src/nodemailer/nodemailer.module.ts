@@ -1,10 +1,10 @@
+import { Env } from '@common/interfaces';
 import { DynamicModule, Module } from '@nestjs/common';
-import { NodemailerService } from './nodemailer.service';
-import { NodemailerServiceImp } from './nodemailer-imp.service';
-import { NODEMAILER_TRANSPORT } from './nodemailer.constant';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
-import { Env } from '@lib/common/interfaces';
+import { NodemailerServiceImp } from './nodemailer-imp.service';
+import { NODEMAILER_TRANSPORT } from './nodemailer.constant';
+import { NodemailerService } from './nodemailer.service';
 
 @Module({})
 export class NodemailerModule {
